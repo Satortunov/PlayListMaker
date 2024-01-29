@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name" translatable="false">Playlist Maker</string>
+    <string name="am_search">Поиск</string>
+    <string name="am_mediatec">Медиатека</string>
+    <string name="am_settings">Настройки</string>
+    <string name="as_dark_theme">Темная тема</string>
+    <string name="as_share">Поделиться приложением</string>
+    <string name="as_support">Написать в поддержку</string>
+    <string name="as_user_agreement">Пользовательское соглашение</string>
+</resources>
