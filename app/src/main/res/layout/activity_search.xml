@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".SearchActivity">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4sp"
+        android:paddingRight="52sp"
+        android:paddingTop="4sp"
+        android:paddingBottom="4sp"
+        tools:ignore="ExtraText">
+
+        <Button
+            android:id="@+id/ase_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:paddingHorizontal="4sp"
+            android:paddingLeft="4sp"
+            android:paddingRight="52sp"
+            android:text="@string/am_search"
+            android:textAllCaps="false"
+            android:textColor="@color/black_text"
+            android:textSize="22sp"
+            android:textStyle="normal"
+            app:icon="@drawable/arrowback"
+            app:iconGravity="textStart"
+            app:iconPadding="24sp"
+            app:iconTint="@color/black_text"/>
+    </FrameLayout>
+</LinearLayout>
