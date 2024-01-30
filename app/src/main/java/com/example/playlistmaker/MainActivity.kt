@@ -1,5 +1,6 @@
 package com.example.playlistmaker
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -27,7 +28,11 @@ class MainActivity : AppCompatActivity() {
 
         val button_settings = findViewById<Button>(R.id.am_settings)
         button_settings.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Нажали на кнопку НАстройки", Toast.LENGTH_SHORT).show() }
+            val displayIntent = Intent(this, SettingsActivity::class.java)
+            startActivity(displayIntent)
+
+           // Toast.makeText(this@MainActivity, "Нажали на кнопку Настройки", Toast.LENGTH_SHORT).show()
+        }
 
     }
 
