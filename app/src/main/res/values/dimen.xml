@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="size_sp_16">16sp</dimen>
+    <dimen name="size_sp_26">26sp</dimen>
+    <dimen name="size_dp_4">4dp</dimen>
+    <dimen name="size_dp_10">10dp</dimen>
+    <dimen name="size_dp_16">16dp</dimen>
+    <dimen name="size_dp_21">21dp</dimen>
+    <dimen name="button_weight">1</dimen>
+    <dimen name="button_height">0dp</dimen>
+</resources>
