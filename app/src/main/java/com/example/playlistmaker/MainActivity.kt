@@ -14,20 +14,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val button_search = findViewById<Button>(R.id.am_search)
-
-        val button_searchClickListener: View.OnClickListener = object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                val displayIntent = Intent(this, SearchActivity::class.java)
-                startActivity(displayIntent)
-
-                //Toast.makeText(this@MainActivity, "Нажали на кнопку Поиск!", Toast.LENGTH_SHORT).show()
-            }
+        button_search.setOnClickListener {
+            val displayIntent = Intent(this, SearchActivity::class.java)
+            startActivity(displayIntent)
         }
-        button_search.setOnClickListener(button_searchClickListener)
+
 
         val button_mediatec = findViewById<Button>(R.id.am_mediatec)
         button_mediatec.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Нажали на кнопку Медиатека", Toast.LENGTH_SHORT).show() }
+            val displayIntent = Intent(this, MediatecActivity::class.java)
+            startActivity(displayIntent)
+
+
+        }
 
         val button_settings = findViewById<Button>(R.id.am_settings)
         button_settings.setOnClickListener {
