@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="20dp"
-    tools:context=".SearchActivity">
+    tools:context=".MainActivity">
 
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="4sp"
-        android:paddingRight="52sp"
-        android:paddingTop="4sp"
-        android:paddingBottom="4sp"
-        tools:ignore="ExtraText">
+        tools:visibility="visible"
+        android:padding="@dimen/size_dp_4"
+        android:layout_marginBottom="24dp">
 
         <Button
             android:id="@+id/ase_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:layout_weight="1"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:backgroundTint="@color/white"
-            android:paddingHorizontal="4sp"
-            android:paddingLeft="4sp"
-            android:paddingRight="52sp"
+            android:textSize="@dimen/size_sp_26"
+            app:icon="@drawable/arrowback"
+            app:iconTint="@color/black_text"
+            android:stateListAnimator="@null"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/am_search"
-            android:textAllCaps="false"
             android:textColor="@color/black_text"
             android:textSize="22sp"
-            android:textStyle="normal"
-            app:icon="@drawable/arrowback"
-            app:iconGravity="textStart"
-            app:iconPadding="24sp"
-            app:iconTint="@color/black_text"/>
-    </FrameLayout>
+            android:layout_gravity="center"
+            android:paddingStart="12dp"
+            />
+    </LinearLayout>
 </LinearLayout>
