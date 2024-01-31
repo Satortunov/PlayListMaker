@@ -1,167 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="20dp">
+    tools:context=".MainActivity">
 
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="4sp"
-        android:paddingRight="52sp"
-        android:paddingTop="4sp"
-        android:paddingBottom="4sp"
-        tools:ignore="ExtraText">
+        tools:visibility="visible"
+        android:padding="@dimen/size_dp_4"
+        android:layout_marginBottom="24dp">
 
         <Button
             android:id="@+id/as_settings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:layout_weight="1"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:backgroundTint="@color/white"
-            android:paddingHorizontal="4sp"
-            android:paddingLeft="4sp"
-            android:paddingRight="52sp"
+            android:textSize="@dimen/size_sp_26"
+            app:icon="@drawable/arrowback"
+            app:iconTint="@color/black_text"
+            android:stateListAnimator="@null"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/am_settings"
-            android:textAllCaps="false"
             android:textColor="@color/black_text"
             android:textSize="22sp"
-            android:textStyle="normal"
-            app:icon="@drawable/arrowback"
-            app:iconGravity="textStart"
-            app:iconPadding="24sp"
-            app:iconTint="@color/black_text"/>
-    </FrameLayout>
+            android:layout_gravity="center"
+            android:paddingStart="12dp"
+            />
+    </LinearLayout>
 
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="4sp"
-        android:paddingRight="52sp"
-        android:paddingTop="4sp"
-        android:paddingBottom="4sp"
-        tools:ignore="ExtraText">
+        tools:visibility="visible"
+        android:padding="@dimen/size_dp_4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/size_dp_16"
+            android:layout_marginTop="@dimen/size_dp_21"
+            android:layout_marginBottom="@dimen/size_dp_21"
+            android:text="@string/as_dark_theme"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/size_sp_16"/>
 
         <Switch
-            android:id="@+id/as_dark_theme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:text="@string/as_dark_theme"
-            android:textAllCaps="false"
-            android:textColor="@color/black_text"
-            android:textSize="16sp"
-            android:textStyle="normal"
-            android:paddingLeft="16sp"
-            android:paddingRight="44sp"
-            android:paddingVertical="21sp"
-            app:cornerRadius="16dp"/>
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16sp"
-        android:paddingRight="12sp"
-        android:paddingTop="19sp"
-        android:paddingBottom="18sp"
-        tools:ignore="ExtraText">
-
-        <Button
-            android:id="@+id/as_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="6dp"
+            android:layout_marginTop="@dimen/size_dp_10"
+            android:layout_marginBottom="@dimen/size_dp_10"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:visibility="visible"
+        android:padding="@dimen/size_dp_4"
+        tools:ignore="ExtraText">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/size_dp_16"
+            android:layout_marginTop="@dimen/size_dp_21"
+            android:layout_marginBottom="@dimen/size_dp_21"
             android:text="@string/as_share"
-            android:textSize="16sp"
-            android:textStyle="normal"
             android:textColor="@color/black_text"
-            android:textAllCaps="false"
-            android:textAlignment="viewStart"
-            android:paddingHorizontal="16sp" />
+            android:textSize="@dimen/size_sp_16"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_weight="1"
-            android:src="@drawable/share"/>
+            android:src="@drawable/share"
+            android:layout_margin="@dimen/size_dp_21"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
-    </FrameLayout>
-
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16sp"
-        android:paddingRight="12sp"
-        android:paddingTop="19sp"
-        android:paddingBottom="18sp"
+        tools:visibility="visible"
+        android:padding="@dimen/size_dp_4"
         tools:ignore="ExtraText">
 
-        <Button
-            android:id="@+id/as_support"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/size_dp_16"
+            android:layout_marginTop="@dimen/size_dp_21"
+            android:layout_marginBottom="@dimen/size_dp_21"
             android:text="@string/as_support"
-            android:textSize="16sp"
-            android:textStyle="normal"
             android:textColor="@color/black_text"
-            android:textAllCaps="false"
-            android:textAlignment="viewStart"
-            android:paddingHorizontal="16sp" />
+            android:textSize="@dimen/size_sp_16"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_weight="1"
-            android:src="@drawable/support"/>
+            android:src="@drawable/support"
+            android:layout_margin="@dimen/size_dp_21"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
-    </FrameLayout>
-
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16sp"
-        android:paddingRight="12sp"
-        android:paddingTop="19sp"
-        android:paddingBottom="18sp"
+        tools:visibility="visible"
+        android:padding="@dimen/size_dp_4"
         tools:ignore="ExtraText">
 
-        <Button
-            android:id="@+id/as_user"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:text="@string/as_user_agreement"
-            android:textSize="16sp"
-            android:textStyle="normal"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/size_dp_16"
+            android:layout_marginTop="@dimen/size_dp_21"
+            android:layout_marginBottom="@dimen/size_dp_21"
+            android:text="@string/as_support"
             android:textColor="@color/black_text"
-            android:textAllCaps="false"
-            android:textAlignment="viewStart"
-            android:paddingHorizontal="16sp" />
+            android:textSize="@dimen/size_sp_16"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_weight="1"
-            android:src="@drawable/arrowforward"/>
-
-    </FrameLayout>
+            android:src="@drawable/arrowforward"
+            android:layout_margin="@dimen/size_dp_21"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 </LinearLayout>
