@@ -18,7 +18,7 @@
         android:layout_marginBottom="24dp">
 
         <Button
-            android:id="@+id/as_settings"
+            android:id="@+id/asSettings"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:backgroundTint="@color/white"
@@ -36,6 +36,7 @@
             android:textSize="22sp"
             android:layout_gravity="center"
             android:paddingStart="12dp"
+            android:paddingBottom="2dp"
             />
     </LinearLayout>
 
@@ -153,3 +154,4 @@
             android:layout_centerInParent="true" />
     </RelativeLayout>
 </LinearLayout>
+

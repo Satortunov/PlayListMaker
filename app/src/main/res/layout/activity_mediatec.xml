@@ -26,7 +26,8 @@
             app:icon="@drawable/arrowback"
             app:iconTint="@color/black_text"
             android:stateListAnimator="@null"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,6 +37,7 @@
             android:textSize="22sp"
             android:layout_gravity="center"
             android:paddingStart="12dp"
+            android:paddingBottom="2dp"
             />
     </LinearLayout>
 </LinearLayout>

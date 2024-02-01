@@ -10,7 +10,7 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        val button_settings = findViewById<Button>(R.id.as_settings)
+        val button_settings = findViewById<Button>(R.id.asSettings)
         button_settings.setOnClickListener {
             finish()
         }
