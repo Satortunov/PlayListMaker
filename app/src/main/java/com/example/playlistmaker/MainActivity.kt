@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(displayIntent)
         }
 
-
         val button_mediatec = findViewById<Button>(R.id.amMediatec)
         button_mediatec.setOnClickListener {
             val displayIntent = Intent(this, MediatecActivity::class.java)
