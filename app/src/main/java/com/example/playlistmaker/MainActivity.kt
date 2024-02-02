@@ -14,20 +14,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val button_search = findViewById<Button>(R.id.amSearch)
-        button_search.setOnClickListener {
+        val buttonSearch = findViewById<Button>(R.id.amSearch)
+        buttonSearch.setOnClickListener {
             val displayIntent = Intent(this, SearchActivity::class.java)
             startActivity(displayIntent)
         }
 
-        val button_mediatec = findViewById<Button>(R.id.amMediatec)
-        button_mediatec.setOnClickListener {
+        val buttonMediatec = findViewById<Button>(R.id.amMediatec)
+        buttonMediatec.setOnClickListener {
             val displayIntent = Intent(this, MediatecActivity::class.java)
             startActivity(displayIntent)
         }
 
-        val button_settings = findViewById<Button>(R.id.amSettings)
-        button_settings.setOnClickListener {
+        val buttonSettings = findViewById<Button>(R.id.amSettings)
+        buttonSettings.setOnClickListener {
             val displayIntent = Intent(this, SettingsActivity::class.java)
             startActivity(displayIntent)
         }
