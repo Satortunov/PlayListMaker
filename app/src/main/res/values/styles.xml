@@ -6,6 +6,15 @@
         <item name="android:textSize">26sp</item>
     </style>
 
+    <style name="LayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/size_dp_16</item>
+        <item name="android:background">@color/blue</item>
+    </style>
+
+
     <style name="TextViewStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -29,4 +38,6 @@
         <item name="iconPadding">@dimen/size_dp_10</item>
         <item name="iconTint">@color/black_text</item>
     </style>
+
+
 </resources>
