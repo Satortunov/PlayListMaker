@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -17,24 +16,14 @@
         android:padding="@dimen/size_dp_4"
         android:layout_marginBottom="24dp">
 
-        <ImageView
+        <ImageView style="@style/ImageViewStyle"
             android:id="@+id/ameMediatec"
-            android:layout_width="@dimen/size_dp_48"
-            android:layout_height="@dimen/size_dp_48"
-            android:backgroundTint="@color/white"
             android:src="@drawable/arrowback"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground" />
+        />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/size_dp_48"
+            style="@style/TextViewStyle"
             android:text="@string/am_mediatec"
-            android:textColor="@color/black_text"
-            android:textSize="22sp"
-            android:layout_gravity="center"
-            android:paddingStart="12dp"
-            android:paddingTop="8dp" />
+ />
     </LinearLayout>
 </LinearLayout>
