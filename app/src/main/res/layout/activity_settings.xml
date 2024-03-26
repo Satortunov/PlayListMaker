@@ -90,6 +90,7 @@
             android:text="@string/as_user_agreement"/>
 
         <ImageView style="@style/ImageSettingViewStyle"
+            android:id="@+id/asUserAgreement"
             android:src="@drawable/arrowforward" />
 
    </RelativeLayout>

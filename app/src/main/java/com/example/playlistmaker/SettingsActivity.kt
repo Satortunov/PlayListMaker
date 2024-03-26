@@ -13,18 +13,17 @@ class SettingsActivity : AppCompatActivity() {
 
        val imageViewSettings = findViewById<ImageView>(R.id.asSettings)
         imageViewSettings.setOnClickListener {
-        finish()
+            finish()
+        }
 
         val imageViewShare = findViewById<ImageView>(R.id.asShare)
             imageViewShare.setOnClickListener {
                 val intentShare = Intent(Intent.ACTION_SEND);
-                intentShare.setType("text/plain");
                 val stringShare = "https://practicum.yandex.ru/android-developer/"
-                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject));
-                intent.putExtra(Intent.EXTRA_TEXT, stringShare);
-                startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
+                intentShare.setType("text/plain");
+                intentShare.putExtra(Intent.EXTRA_TEXT, stringShare)
+                startActivity(Intent.createChooser(intentShare, "Sent Message"))
             }
-
 
         val imageViewSupport = findViewById<ImageView>(R.id.asSupport)
         imageViewSupport.setOnClickListener {
@@ -35,6 +34,11 @@ class SettingsActivity : AppCompatActivity() {
             intentSupport.putExtra(Intent.EXTRA_TEXT, "Спасибо разработчикам и разработчицам за крутое приложение!");
             startActivity(Intent.createChooser(intentSupport, "Send Email"))
         }
-
+        val imageViewUserAgreement = findViewById<ImageView>(R.id.asUserAgreement)
+        imageViewUserAgreement.setOnClickListener {
+            val intentUserAgreement: Intent =
+                Intent(Intent.ACTION_VIEW, "https://yandex.ru/legal/practicum_offer/")
+            startActivity(intentUserAgreement)
+        }
     }
 }
