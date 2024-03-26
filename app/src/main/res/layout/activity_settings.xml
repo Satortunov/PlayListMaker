@@ -57,7 +57,9 @@
         <TextView style="@style/TextSettingsViewStyle"
             android:text="@string/as_share"/>
 
-        <ImageView style="@style/ImageSettingViewStyle"
+        <ImageView
+            style="@style/ImageSettingViewStyle"
+            android:id="@+id/asShare"
             android:src="@drawable/share" />
     </RelativeLayout>
 
@@ -68,10 +70,12 @@
         android:padding="@dimen/size_dp_4"
         tools:ignore="ExtraText">
 
-        <TextView style="@style/TextSettingsViewStyle"
-            android:text="@string/as_support"/>
+        <TextView
+            style="@style/TextSettingsViewStyle"
+            android:text="@string/as_support" />
 
         <ImageView style="@style/ImageSettingViewStyle"
+            android:id="@+id/asSupport"
             android:src="@drawable/support"/>
     </RelativeLayout>
 
