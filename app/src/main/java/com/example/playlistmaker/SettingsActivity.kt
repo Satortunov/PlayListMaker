@@ -1,6 +1,7 @@
 package com.example.playlistmaker
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -32,12 +33,13 @@ class SettingsActivity : AppCompatActivity() {
             intentSupport.putExtra(Intent.EXTRA_EMAIL, "satortunov@yandex.ru");
             intentSupport.putExtra(Intent.EXTRA_SUBJECT, "Сообщение разработчикам и разработчицам приложения Playlist Maker");
             intentSupport.putExtra(Intent.EXTRA_TEXT, "Спасибо разработчикам и разработчицам за крутое приложение!");
-            startActivity(Intent.createChooser(intentSupport, "Send Email"))
+            startActivity(intentSupport)
         }
         val imageViewUserAgreement = findViewById<ImageView>(R.id.asUserAgreement)
         imageViewUserAgreement.setOnClickListener {
-            val intentUserAgreement: Intent =
-                Intent(Intent.ACTION_VIEW, "https://yandex.ru/legal/practicum_offer/")
+            val urlString = "https://yandex.ru/legal/practicum_offer/"
+            val intentUserAgreement: Intent = Intent(Intent.ACTION_VIEW)
+            intentUserAgreement.setData(Uri.parse(urlString))
             startActivity(intentUserAgreement)
         }
     }
