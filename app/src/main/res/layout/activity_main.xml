@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/size_dp_16"
+    android:background="@color/blue"
     tools:context=".MainActivity">
 
 
