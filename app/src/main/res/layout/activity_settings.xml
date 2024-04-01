@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:theme="@style/Theme.PlaylistMaket"
+    android:theme="@style/ThemeOverlay.PlaylistMaket.Settings"
     tools:context=".MainActivity">
 
 
@@ -19,14 +19,12 @@
 
         <ImageView style="@style/ImageViewStyle"
             android:id="@+id/asSettings"
-            android:src="@drawable/arrowback" />
+            android:src="@drawable/arrowback"/>
 
         <TextView style="@style/TextViewStyle"
-            android:text="@string/am_settings"
-            />
+            android:text="@string/am_settings"/>
 
     </LinearLayout>
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -34,8 +32,9 @@
         tools:visibility="visible"
         android:padding="@dimen/size_dp_4">
 
-        <TextView style="@style/TextSettingsViewStyle"
-            android:text="@string/as_dark_theme"/>
+        <TextView
+            style="@style/TextSettingsViewStyle"
+            android:text="@string/as_dark_theme" />
 
         <Switch
             android:layout_width="wrap_content"
@@ -44,8 +43,7 @@
             android:layout_centerInParent="true"
             android:layout_marginEnd="6dp"
             android:layout_marginTop="@dimen/size_dp_10"
-            android:layout_marginBottom="@dimen/size_dp_10"
-            />
+            android:layout_marginBottom="@dimen/size_dp_10" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -55,8 +53,9 @@
         android:padding="@dimen/size_dp_4"
         tools:ignore="ExtraText">
 
-        <TextView style="@style/TextSettingsViewStyle"
-            android:text="@string/as_share"/>
+        <TextView
+            style="@style/TextSettingsViewStyle"
+            android:text="@string/as_share" />
 
         <ImageView
             style="@style/ImageSettingViewStyle"
@@ -70,6 +69,7 @@
         tools:visibility="visible"
         android:padding="@dimen/size_dp_4"
         tools:ignore="ExtraText">
+
 
         <TextView
             style="@style/TextSettingsViewStyle"

@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/size_dp_16"
-    android:background="@color/blue"
     tools:context=".MainActivity">
 
 
@@ -19,8 +18,8 @@
         android:paddingBottom="24dp">
 
     <TextView style="@style/TextViewStyle"
-            android:text="@string/app_name"
-            android:textColor="@color/white"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
     />
     </FrameLayout>
 

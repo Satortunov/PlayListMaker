@@ -8,8 +8,9 @@
 
     <style name="TextViewStyle">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/size_dp_48</item>
         <item name="android:textSize">@dimen/size_sp_26</item>
+        <item name="android:gravity">center</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:layout_marginBottom">@dimen/size_dp_16</item>
     </style>
@@ -28,7 +29,7 @@
     <style name="ImageViewStyle">
         <item name="android:layout_width">@dimen/size_dp_48</item>
         <item name="android:layout_height">@dimen/size_dp_48</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:layout_gravity">center_horizontal</item>
