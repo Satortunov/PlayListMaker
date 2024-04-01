@@ -25,13 +25,15 @@
 
     </LinearLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:visibility="visible"
-        android:padding="@dimen/size_dp_4">
+        android:padding="@dimen/size_dp_4"
+        android:id="@+id/container">
 
         <EditText
+            android:id="@+id/enterEditText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_dp_36"
             app:cornerRadius="@dimen/size_dp_8"
@@ -45,6 +47,6 @@
             android:drawablePadding="@dimen/size_dp_28"
             android:paddingLeft="@dimen/size_dp_28"
             android:lines="1"/>
-    </FrameLayout>>
+    </LinearLayout>>
 
 </LinearLayout>
