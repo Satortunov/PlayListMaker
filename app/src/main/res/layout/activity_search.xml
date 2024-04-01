@@ -14,15 +14,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:visibility="visible"
-        android:padding="@dimen/size_dp_4"
-        android:layout_marginBottom="24dp">
+        android:padding="@dimen/size_dp_4">
 
         <ImageView style="@style/ImageViewStyle"
             android:id="@+id/aseSearch"
-            android:src="@drawable/arrowback" />
+            android:src="@drawable/arrowback"/>
 
-        <TextView style="@style/TextViewStyle"
-            android:text="@string/am_search"
- />
+           <TextView style="@style/TextViewStyle"
+            android:text="@string/am_search"/>
+
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:visibility="visible"
+        android:padding="@dimen/size_dp_4">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_dp_36"
+            app:cornerRadius="@dimen/size_dp_8"
+            android:layout_marginLeft="@dimen/size_dp_16"
+            android:layout_marginRight="@dimen/size_dp_16"
+            android:layout_marginTop="@dimen/size_dp_8"
+            android:hint="Поиск"
+            android:background="@color/light_grey"
+            android:inputType="textMultiLine"
+            android:drawableLeft="@drawable/field_search"
+            android:drawablePadding="@dimen/size_dp_28"
+            android:paddingLeft="@dimen/size_dp_28"
+            android:lines="1"/>
+    </FrameLayout>>
+
 </LinearLayout>

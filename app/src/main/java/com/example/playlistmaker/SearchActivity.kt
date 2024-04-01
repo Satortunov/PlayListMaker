@@ -10,10 +10,10 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-
         val imageViewSearch = findViewById<ImageView>(R.id.aseSearch)
         imageViewSearch.setOnClickListener {
             finish()
         }
+
     }
 }
