@@ -15,7 +15,7 @@
 
         <EditText
             android:id="@+id/editTextDate"
-            android:layout_toRightOf="@+id/dateIcon"
+            android:layout_toRightOf="@+id/search_Icon"
             android:text=""
             android:hint="Поиск"
             android:padding="10dp"
@@ -23,13 +23,12 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
-            android:layout_marginLeft="10dp"
-            android:padding="3dp"
-            android:tint="@color/light_grey"
-            android:id="@+id/dateIcon"
             android:src="@drawable/field_search"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:id="@+id/search_Icon"
+            android:layout_marginLeft="@dimen/size_dp_18"
+            android:padding="7dp"
+            android:layout_width="@dimen/size_dp_36"
+            android:layout_height="@dimen/size_dp_36" />
 
     </RelativeLayout>
 </LinearLayout>

@@ -13,7 +13,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:visibility="visible"
         android:padding="@dimen/size_dp_4">
 
         <ImageView style="@style/ImageViewStyle"
@@ -22,31 +21,31 @@
 
            <TextView style="@style/TextViewStyle"
             android:text="@string/am_search"/>
-
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginRight="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:visibility="visible"
-        android:padding="@dimen/size_dp_4"
-        android:id="@+id/container">
+        android:padding="@dimen/size_dp_4">
+
+        <ImageView
+            android:src="@drawable/field_search"
+            android:id="@+id/search_Icon"
+            android:layout_marginLeft="@dimen/size_dp_18"
+            android:padding="7dp"
+            android:layout_width="@dimen/size_dp_36"
+            android:layout_height="@dimen/size_dp_36"
+            android:background="@color/light_grey"/>
 
         <EditText
             android:id="@+id/enterEditText"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/size_dp_36"
-            app:cornerRadius="@dimen/size_dp_8"
-            android:layout_marginLeft="@dimen/size_dp_16"
-            android:layout_marginRight="@dimen/size_dp_16"
-            android:layout_marginTop="@dimen/size_dp_8"
+            android:text=""
             android:hint="Поиск"
+            android:padding="@dimen/size_dp_4"
             android:background="@color/light_grey"
-            android:inputType="textMultiLine"
-            android:drawableLeft="@drawable/field_search"
-            android:drawablePadding="@dimen/size_dp_28"
-            android:paddingLeft="@dimen/size_dp_28"
-            android:lines="1"/>
-    </LinearLayout>>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_dp_36"/>
+    </LinearLayout>
 
 </LinearLayout>
