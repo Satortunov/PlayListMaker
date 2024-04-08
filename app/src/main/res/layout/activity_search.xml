@@ -9,7 +9,6 @@
     android:theme="@style/ThemeOverlay.PlaylistMaket.Settings"
     tools:context=".MainActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,33 +18,36 @@
             android:id="@+id/aseSearch"
             android:src="@drawable/arrowback"/>
 
-           <TextView style="@style/TextViewStyle"
+        <TextView style="@style/TextViewStyle"
             android:text="@string/am_search"/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/size_dp_4">
+        android:layout_height="@dimen/size_dp_52"
+        android:layout_marginStart="@dimen/size_dp_18"
+        android:layout_marginEnd="@dimen/size_dp_18"
+        android:background="@drawable/layout_bg">
 
         <ImageView
-            android:src="@drawable/field_search"
             android:id="@+id/search_Icon"
-            android:layout_marginLeft="@dimen/size_dp_18"
-            android:padding="7dp"
-            android:layout_width="@dimen/size_dp_36"
-            android:layout_height="@dimen/size_dp_36"
-            android:background="@color/light_grey"/>
+            android:src="@drawable/field_search"
+            android:layout_width="@dimen/size_dp_18"
+            android:layout_height="@dimen/size_dp_18"
+            android:background="@color/light_grey"
+            android:layout_marginStart="@dimen/size_dp_8"
+            android:layout_gravity="center"/>
 
         <EditText
             android:id="@+id/enterEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:text=""
             android:hint="Поиск"
-            android:padding="@dimen/size_dp_4"
             android:background="@color/light_grey"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/size_dp_36"/>
+            android:layout_margin="@dimen/size_dp_8"/>
+
     </LinearLayout>
 
 </LinearLayout>

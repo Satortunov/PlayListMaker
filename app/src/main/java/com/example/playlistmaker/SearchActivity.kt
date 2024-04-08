@@ -24,12 +24,13 @@ class SearchActivity : AppCompatActivity() {
 
         inputEditText.setOnClickListener {
             inputEditText.setHint("")
-
         }
+
         searchImage.setOnClickListener {
             inputEditText.setText("")
-            searchImage.visibility = searchImageVisibility("")
+            searchImage.visibility = searchImageVisibility(null)
         }
+
         val imageViewSearch = findViewById<ImageView>(R.id.aseSearch)
         imageViewSearch.setOnClickListener {
             finish()
@@ -38,7 +39,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun searchImageVisibility(s: CharSequence?): Int {
         return if (s.isNullOrEmpty()) {
-            View.GONE
+            View.INVISIBLE
         } else {
             View.VISIBLE
         }
