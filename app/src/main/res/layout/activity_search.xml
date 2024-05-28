@@ -40,13 +40,25 @@
 
         <EditText
             android:id="@+id/enterEditText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:text=""
             android:hint="Поиск"
             android:background="@color/light_grey"
             android:layout_margin="@dimen/size_dp_8"/>
+
+        <ImageView
+            android:id="@+id/clearIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_dp_8"
+            android:layout_gravity="center"
+            android:background="@color/light_grey"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:visibility="gone"/>
+
 
     </LinearLayout>
 
