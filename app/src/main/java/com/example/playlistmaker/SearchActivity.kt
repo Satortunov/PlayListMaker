@@ -34,35 +34,26 @@ class SearchActivity : AppCompatActivity() {
 
         clearButton.setOnClickListener {
             inputEditText.setText("")
-
             val view: View? = this.currentFocus
-
             if (view != null) {
-
                 val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0)
-
             }
         }
 
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // empty
+                savedStr = inputEditText.text.toString()
             }
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearButton.visibility = clearButtonVisibility(s)
             }
-
             override fun afterTextChanged(s: Editable?) {
-                //
             }
         }
-
         inputEditText.addTextChangedListener(simpleTextWatcher)
-
     }
+
     private fun clearButtonVisibility(s: CharSequence?): Int {
         return if (s.isNullOrEmpty()) {
             View.GONE
@@ -70,4 +61,23 @@ class SearchActivity : AppCompatActivity() {
             View.VISIBLE
         }
     }
+
+    private var savedStr: String = SAVED_STR
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(SAVED_STRING, savedStr)
+    }
+    companion object {
+        const val SAVED_STRING = "SAVED_STRING"
+        const val SAVED_STR = ""
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedStr = savedInstanceState.getString(SAVED_STRING, savedStr)
+    }
+
+
+
 }
