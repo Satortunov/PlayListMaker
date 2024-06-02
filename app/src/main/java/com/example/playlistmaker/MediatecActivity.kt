@@ -2,7 +2,6 @@ package com.example.playlistmaker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageView
 
 class MediatecActivity : AppCompatActivity() {

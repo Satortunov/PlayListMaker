@@ -7,5 +7,8 @@
     <string name="as_share">Поделиться приложением</string>
     <string name="as_support">Написать в поддержку</string>
     <string name="as_user_agreement">Пользовательское соглашение</string>
+    <string name="aa_user_agreement">Соглашение</string>
+    <string name="hyperlink">https://yandex.ru/legal/practicum_offer/</string>
+
 
 </resources>

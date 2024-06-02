@@ -1,10 +1,8 @@
 package com.example.playlistmaker
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageView
 
 class SettingsActivity : AppCompatActivity() {
@@ -37,10 +35,8 @@ class SettingsActivity : AppCompatActivity() {
         }
         val imageViewUserAgreement = findViewById<ImageView>(R.id.asUserAgreement)
         imageViewUserAgreement.setOnClickListener {
-            val urlString = "https://yandex.ru/legal/practicum_offer/"
-            val intentUserAgreement: Intent = Intent(Intent.ACTION_VIEW)
-            intentUserAgreement.setData(Uri.parse(urlString))
-            startActivity(intentUserAgreement)
+               val displayIntent = Intent(this, AgreementActivity::class.java)
+            startActivity(displayIntent)
         }
     }
 }

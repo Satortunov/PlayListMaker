@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:visibility="visible"
-        android:paddingBottom="24dp">
+        android:paddingBottom="@dimen/size_dp_24">
 
     <TextView style="@style/TextViewStyle"
         android:text="@string/app_name"

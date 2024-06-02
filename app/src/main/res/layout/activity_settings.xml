@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         tools:visibility="visible"
         android:padding="@dimen/size_dp_4"
-        android:layout_marginBottom="24dp">
+        android:layout_marginBottom="@dimen/size_dp_24">
 
         <ImageView style="@style/ImageViewStyle"
             android:id="@+id/asSettings"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="@dimen/size_dp_6"
             android:layout_marginTop="@dimen/size_dp_10"
             android:layout_marginBottom="@dimen/size_dp_10" />
     </RelativeLayout>

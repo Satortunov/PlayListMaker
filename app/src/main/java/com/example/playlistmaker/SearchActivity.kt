@@ -1,20 +1,16 @@
 package com.example.playlistmaker
 
-import android.app.Activity
-import android.content.Context
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import com.google.android.material.internal.ViewUtils.hideKeyboard
+
 
 class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,11 +22,10 @@ class SearchActivity : AppCompatActivity() {
             finish()
         }
 
-        val linearLayout = findViewById<LinearLayout>(R.id.container)
+        //val linearLayout = findViewById<LinearLayout>(R.id.container)
         val inputEditText = findViewById<EditText>(R.id.enterEditText)
         val clearButton = findViewById<ImageView>(R.id.clearIcon)
         inputEditText.requestFocus()
-        //inputEditText.focusable
 
         clearButton.setOnClickListener {
             inputEditText.setText("")
