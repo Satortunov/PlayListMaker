@@ -1,6 +1,7 @@
 package com.example.playlistmaker
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -26,11 +27,14 @@ class SettingsActivity : AppCompatActivity() {
 
         val imageViewSupport = findViewById<ImageView>(R.id.asSupport)
         imageViewSupport.setOnClickListener {
-            val intentSupport = Intent(Intent.ACTION_SEND);
-            intentSupport.setType("text/html");
-            intentSupport.putExtra(Intent.EXTRA_EMAIL, "satortunov@yandex.ru");
-            intentSupport.putExtra(Intent.EXTRA_SUBJECT, "Сообщение разработчикам и разработчицам приложения Playlist Maker");
-            intentSupport.putExtra(Intent.EXTRA_TEXT, "Спасибо разработчикам и разработчицам за крутое приложение!");
+            val intentSupport = Intent().apply {
+                action = Intent.ACTION_SENDTO
+                setType("text/html");
+                data = Uri.parse("mailto:satortunov@yandex.ru")
+                putExtra(Intent.EXTRA_SUBJECT,"Сообщение разработчикам и разработчицам приложения Playlist Maker");
+                putExtra(Intent.EXTRA_TEXT,"Спасибо разработчикам и разработчицам за крутое приложение!"
+                );
+            }
             startActivity(intentSupport)
         }
         val imageViewUserAgreement = findViewById<ImageView>(R.id.asUserAgreement)

@@ -2,6 +2,7 @@
 <resources>
     <dimen name="size_sp_16">16sp</dimen>
     <dimen name="size_sp_26">26sp</dimen>
+    <dimen name="size_dp_2">2dp</dimen>
     <dimen name="size_dp_4">4dp</dimen>
     <dimen name="size_dp_6">4dp</dimen>
     <dimen name="size_dp_8">8dp</dimen>
