@@ -43,7 +43,7 @@
         <item name="android:layout_centerInParent">true</item>
     </style>
 
-    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
+    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">@dimen/button_weight</item>
@@ -56,7 +56,5 @@
         <item name="iconPadding">@dimen/size_dp_10</item>
         <item name="iconTint">@color/black_text</item>
     </style>
-
-
 
 </resources>

@@ -10,8 +10,7 @@ class AgreementActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agreement)
         val webView = findViewById<WebView>(R.id.webView)
-        webView.loadUrl("https://yandex.ru/legal/practicum_offer/")
-
+        webView.loadUrl(getString(R.string.agreement_address))
 
         val imageViewSettings = findViewById<ImageView>(R.id.aseAgreement)
         imageViewSettings.setOnClickListener {

@@ -22,7 +22,6 @@ class SearchActivity : AppCompatActivity() {
             finish()
         }
 
-        //val linearLayout = findViewById<LinearLayout>(R.id.container)
         val inputEditText = findViewById<EditText>(R.id.enterEditText)
         val clearButton = findViewById<ImageView>(R.id.clearIcon)
         inputEditText.requestFocus()
@@ -38,12 +37,13 @@ class SearchActivity : AppCompatActivity() {
 
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                savedStr = inputEditText.text.toString()
+
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearButton.visibility = clearButtonVisibility(s)
             }
             override fun afterTextChanged(s: Editable?) {
+                savedStr = inputEditText.text.toString()
             }
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)

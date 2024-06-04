@@ -93,7 +93,6 @@
         <ImageView style="@style/ImageSettingViewStyle"
             android:id="@+id/asUserAgreement"
             android:src="@drawable/arrowforward" />
-
    </RelativeLayout>
 
     <LinearLayout

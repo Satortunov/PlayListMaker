@@ -19,9 +19,8 @@ class SettingsActivity : AppCompatActivity() {
         val imageViewShare = findViewById<ImageView>(R.id.asShare)
             imageViewShare.setOnClickListener {
                 val intentShare = Intent(Intent.ACTION_SEND);
-                val stringShare = "https://practicum.yandex.ru/android-developer/"
                 intentShare.setType("text/plain");
-                intentShare.putExtra(Intent.EXTRA_TEXT, stringShare)
+                intentShare.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_app))
                 startActivity(Intent.createChooser(intentShare, "Sent Message"))
             }
 
@@ -30,10 +29,9 @@ class SettingsActivity : AppCompatActivity() {
             val intentSupport = Intent().apply {
                 action = Intent.ACTION_SENDTO
                 setType("text/html");
-                data = Uri.parse("mailto:satortunov@yandex.ru")
-                putExtra(Intent.EXTRA_SUBJECT,"Сообщение разработчикам и разработчицам приложения Playlist Maker");
-                putExtra(Intent.EXTRA_TEXT,"Спасибо разработчикам и разработчицам за крутое приложение!"
-                );
+                data = Uri.parse(getString(R.string.support_address))
+                putExtra(Intent.EXTRA_SUBJECT,"Тыр-тыр")
+                putExtra(Intent.EXTRA_TEXT,getString(R.string.support_message))
             }
             startActivity(intentSupport)
         }
