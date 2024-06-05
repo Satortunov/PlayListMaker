@@ -13,6 +13,9 @@ import android.widget.LinearLayout
 
 
 class SearchActivity : AppCompatActivity() {
+
+    private var savedStr: String = SAVED_STR
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
@@ -57,22 +60,20 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private var savedStr: String = SAVED_STR
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(SAVED_STRING, savedStr)
     }
-    companion object {
-        const val SAVED_STRING = "SAVED_STRING"
-        const val SAVED_STR = ""
-    }
+
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         savedStr = savedInstanceState.getString(SAVED_STRING, savedStr)
     }
 
-
+    companion object {
+        const val SAVED_STRING = "SAVED_STRING"
+        const val SAVED_STR = ""
+    }
 
 }
