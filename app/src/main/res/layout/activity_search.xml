@@ -23,44 +23,49 @@
 
     </LinearLayout>
 
-    <LinearLayout
+
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_dp_52"
-        android:layout_marginStart="@dimen/size_dp_18"
-        android:layout_marginEnd="@dimen/size_dp_18"
-        android:background="@drawable/layout_bg">
-
-        <ImageView
-            android:id="@+id/search_Icon"
-            android:src="@drawable/field_search"
-            android:layout_width="@dimen/size_dp_18"
-            android:layout_height="@dimen/size_dp_18"
-            android:background="@color/light_grey"
-            android:layout_marginStart="@dimen/size_dp_8"
-            android:layout_gravity="center"/>
+        android:layout_marginTop="@dimen/size_dp_8"
+        android:layout_marginLeft="@dimen/size_dp_16"
+        android:layout_marginRight="@dimen/size_dp_16">
 
         <EditText
             android:id="@+id/enterEditText"
-            android:layout_width="@dimen/size_dp_8"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_dp_36"
             android:layout_weight="1"
-            android:layout_gravity="center"
-            android:text=""
+            android:background="@drawable/round"
+            android:paddingLeft="@dimen/size_dp_38"
             android:hint="@string/am_search"
-            android:textColorHint="@color/black_text"
-            android:textColor="@color/black_text"
-            android:background="@color/light_grey"
-            android:layout_margin="@dimen/size_dp_8"/>
+            android:textColorHint="@color/hint_color"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/search_Icon"
+            android:src="@drawable/ssearch"
+            android:layout_width="@dimen/size_dp_18"
+            android:layout_height="@dimen/size_dp_18"
+            android:layout_marginTop="@dimen/size_dp_10"
+            android:layout_weight="1"
+            android:background="@color/search_background"
+            android:layout_marginStart="@dimen/size_dp_10"
+            />
 
         <ImageView
             android:id="@+id/clearIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/size_dp_8"
-            android:layout_gravity="center"
-            android:background="@color/light_grey"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            android:visibility="gone"/>
-    </LinearLayout>
+            android:layout_width="@dimen/size_dp_18"
+            android:layout_height="@dimen/size_dp_18"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/size_dp_10"
+            android:background="@color/search_background"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/size_dp_12"
+            android:src="@drawable/clear_icon"
+            android:visibility="gone"
+             />
+    </FrameLayout>
 
 </LinearLayout>

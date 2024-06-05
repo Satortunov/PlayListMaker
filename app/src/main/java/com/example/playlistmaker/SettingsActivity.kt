@@ -30,7 +30,7 @@ class SettingsActivity : AppCompatActivity() {
                 action = Intent.ACTION_SENDTO
                 setType("text/html");
                 data = Uri.parse(getString(R.string.support_address))
-                putExtra(Intent.EXTRA_SUBJECT,"Тыр-тыр")
+                putExtra(Intent.EXTRA_SUBJECT,getString(R.string.support_theme))
                 putExtra(Intent.EXTRA_TEXT,getString(R.string.support_message))
             }
             startActivity(intentSupport)
