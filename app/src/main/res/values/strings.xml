@@ -14,4 +14,7 @@
     <string name="support_theme">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
     <string name="support_message">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="agreement_address" translatable="false">https://yandex.ru/legal/practicum_offer/</string>
+    <string name="musician_name" translatable="false">Unamed</string>
+    <string name="track_name" translatable="false">No Raply</string>
+    <string name="track_time" translatable="false">00:00</string>
 </resources>

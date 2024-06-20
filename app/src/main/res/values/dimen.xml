@@ -2,6 +2,7 @@
 <resources>
     <dimen name="size_sp_16">16sp</dimen>
     <dimen name="size_sp_26">26sp</dimen>
+    <dimen name="size_dp_0">1dp</dimen>
     <dimen name="size_dp_1">1dp</dimen>
     <dimen name="size_dp_2">2dp</dimen>
     <dimen name="size_dp_4">4dp</dimen>
@@ -18,8 +19,10 @@
     <dimen name="size_dp_35">35dp</dimen>
     <dimen name="size_dp_36">36dp</dimen>
     <dimen name="size_dp_38">38dp</dimen>
+    <dimen name="size_dp_45">48dp</dimen>
     <dimen name="size_dp_48">48dp</dimen>
     <dimen name="size_dp_52">52dp</dimen>
+    <dimen name="size_dp_61">61dp</dimen>
     <dimen name="button_weight">1</dimen>
     <dimen name="button_height">0dp</dimen>
 </resources>

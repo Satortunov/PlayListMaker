@@ -9,7 +9,10 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.*
+import android.widget.Button
 import android.widget.LinearLayout
+import androidx.recyclerview.widget.RecyclerView
 
 
 class SearchActivity : AppCompatActivity() {
@@ -50,6 +53,9 @@ class SearchActivity : AppCompatActivity() {
             }
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)
+
+        val searchedTrackList = findViewById<RecyclerView>(R.id.searchedTracks)
+        searchedTrackList.adapter = trackList
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
@@ -65,7 +71,6 @@ class SearchActivity : AppCompatActivity() {
         outState.putString(SAVED_STRING, savedStr)
     }
 
-
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         savedStr = savedInstanceState.getString(SAVED_STRING, savedStr)
@@ -75,5 +80,4 @@ class SearchActivity : AppCompatActivity() {
         const val SAVED_STRING = "SAVED_STRING"
         const val SAVED_STR = ""
     }
-
 }

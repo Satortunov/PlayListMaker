@@ -41,6 +41,7 @@
             android:paddingLeft="@dimen/size_dp_36"
             android:hint="@string/am_search"
             android:textColorHint="@color/hint_color"
+            android:textColor="@color/black"
             android:singleLine="true" />
 
         <ImageView
@@ -67,5 +68,13 @@
             android:visibility="gone"
              />
     </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:id="@+id/searchedTracks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:itemCount="9"
+        tools:listitem="@layout/track_view" />
 
 </LinearLayout>
