@@ -68,4 +68,9 @@
         <item name="maxLines">1</item>
     </style>
 
+    <style name="Cover_Style">
+        <item name="cornerRadius">@dimen/size_dp_2</item>
+        <item name="backgroundColor">@color/black</item>
+    </style>
+
 </resources>

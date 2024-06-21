@@ -6,6 +6,7 @@
 
     <ImageView
         android:id="@+id/artworkUrl"
+        style="@style/Cover_Style"
         android:layout_width="@dimen/size_dp_45"
         android:layout_height="@dimen/size_dp_45"
         android:scaleType="fitCenter"
@@ -13,6 +14,7 @@
         android:src="@drawable/placeholder" />
 
     <LinearLayout
+        style="@style/Cover_Style"
         android:layout_width="@dimen/size_dp_0"
         android:layout_height="match_parent"
         android:layout_gravity="center"

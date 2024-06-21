@@ -28,18 +28,5 @@
  />
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/size_dp_2">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigatin_view"
-            android:layout_gravity="bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_dp_18"
-            android:layout_marginEnd="@dimen/size_dp_18"
-            app:menu="@menu/bottom_menu" />
-    </LinearLayout>
 </LinearLayout>
