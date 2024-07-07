@@ -42,6 +42,7 @@
             android:hint="@string/am_search"
             android:textColorHint="@color/hint_color"
             android:textColor="@color/black"
+            android:imeOptions="actionDone"
             android:singleLine="true" />
 
         <ImageView
@@ -67,6 +68,8 @@
             android:src="@drawable/clear_icon"
             android:visibility="gone"
              />
+
+
     </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -55,7 +55,7 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.addTextChangedListener(simpleTextWatcher)
 
         val searchedTrackList = findViewById<RecyclerView>(R.id.searchedTracks)
-        searchedTrackList.adapter = trackList
+        searchedTrackList.adapter = adapter
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
