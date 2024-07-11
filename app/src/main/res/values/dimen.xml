@@ -22,6 +22,7 @@
     <dimen name="size_dp_45">48dp</dimen>
     <dimen name="size_dp_48">48dp</dimen>
     <dimen name="size_dp_52">52dp</dimen>
+    <dimen name="size_dp_54">52dp</dimen>
     <dimen name="size_dp_61">61dp</dimen>
     <dimen name="button_weight">1</dimen>
     <dimen name="button_height">0dp</dimen>

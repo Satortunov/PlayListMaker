@@ -1,4 +1,4 @@
-package com.example.playlistmaker.searchlist
+package com.example.playlistmaker
 
 import com.example.playlistmaker.Track
 

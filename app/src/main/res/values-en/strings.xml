@@ -10,4 +10,7 @@
     <string name="aa_user_agreement">Agreement</string>
     <string name="support_theme">Message to Play List Maker developers</string>
     <string name="support_message">Thank you for this cool app</string>
+    <string name="connection_problems">No Internet connections</string>
+    <string name="nothing_find">I find nothing</string>
+    <string name="reload">Reload</string>
 </resources>
