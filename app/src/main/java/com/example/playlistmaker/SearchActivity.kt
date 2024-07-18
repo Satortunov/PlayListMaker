@@ -36,6 +36,7 @@ class SearchActivity : AppCompatActivity() {
 
     private val iTunesAPI = retrofit.create(iTunesAPI::class.java)
     private lateinit var holderMessage: TextView
+    private lateinit var holderImage: ImageView
 
 
     private val tracks = ArrayList<Track>()
@@ -50,6 +51,8 @@ class SearchActivity : AppCompatActivity() {
             finish()
         }
         holderMessage = findViewById(R.id.holderMessageText)
+        holderImage = findViewById(R.id.holderMessageImage)
+
         val inputEditText = findViewById<EditText>(R.id.enterEditText)
         val clearButton = findViewById<ImageView>(R.id.clearIcon)
         inputEditText.requestFocus()
@@ -100,7 +103,7 @@ class SearchActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-                        showMessage(getString(R.string.nothing_find), "Четыре")
+                        showMessage(getString(R.string.connection_problems), "Четыре")
                     }
 
                 })
@@ -114,10 +117,6 @@ class SearchActivity : AppCompatActivity() {
         reloadButton.setOnClickListener {
             findTracks()
         }
-
-
-
-
 
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -153,9 +152,11 @@ class SearchActivity : AppCompatActivity() {
 
     private fun showMessage(text: String, additionalMessage: String) {
         if (text.isNotEmpty()) {
-            holderMessage.visibility = View.VISIBLE
             tracks.clear()
             holderMessage.text = text
+            holderMessage.visibility = View.VISIBLE
+            //holderImage.
+            holderImage.visibility = View.VISIBLE
             if (additionalMessage.isNotEmpty()) {
                 Toast.makeText(applicationContext, additionalMessage, Toast.LENGTH_LONG)
                     .show()
