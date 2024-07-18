@@ -11,8 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/aseSearch"
@@ -24,9 +23,6 @@
             android:text="@string/am_search"/>
 
     </LinearLayout>
-
-
-
 
     <FrameLayout
         android:id="@+id/container"
@@ -72,33 +68,16 @@
             />
     </FrameLayout>
 
-
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <LinearLayout
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
         tools:listitem="@layout/track_view"
-        tools:itemCount="3"/>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:id="@+id/searchedTracks"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
         tools:itemCount="3"
-        tools:listitem="@layout/track_view" />
-
-    <LinearLayout
         android:id="@+id/placeholderMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="110dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/holderMessageImage"
@@ -121,6 +100,14 @@
             android:visibility="gone"
             android:text="@string/reload"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:id="@+id/searchedTracks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:itemCount="3"
+            tools:listitem="@layout/track_view"/>
     </LinearLayout>
 
 </LinearLayout>

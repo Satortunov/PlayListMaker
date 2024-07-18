@@ -35,9 +35,8 @@ class SearchActivity : AppCompatActivity() {
     private val retrofit = Retrofit.Builder().baseUrl(itunesAPIUrl).addConverterFactory(GsonConverterFactory.create()).build()
 
     private val iTunesAPI = retrofit.create(iTunesAPI::class.java)
-   // private lateinit var inputEditText: EditText
     private lateinit var holderMessage: TextView
-   // private lateinit var searchList: RecyclerView
+
 
     private val tracks = ArrayList<Track>()
     private val adapter = SearchAdapter(tracks)
@@ -77,11 +76,9 @@ class SearchActivity : AppCompatActivity() {
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)
 
-        val searchedTracksList = findViewById<RecyclerView>(R.id.searchedTracks)
-        searchedTracksList.adapter = adapter
 
-        val reloadButton = findViewById<Button>(R.id.reloadButton)
-        reloadButton.setOnClickListener {
+        fun findTracks() {
+
             if (inputEditText.text.isNotEmpty()) {
                 iTunesAPI.search(inputEditText.text.toString()).enqueue(object : Callback<TrackResponse> {
                     override fun onResponse(call: Call<TrackResponse>,
@@ -108,38 +105,17 @@ class SearchActivity : AppCompatActivity() {
 
                 })
             }
+
+        } //findTracks
+
+        val searchedTracksList = findViewById<RecyclerView>(R.id.searchedTracks)
+        searchedTracksList.adapter = adapter
+        val reloadButton = findViewById<Button>(R.id.reloadButton)
+        reloadButton.setOnClickListener {
+            findTracks()
         }
 
-        fun findTracks() {
-            iTunesAPI.search(inputEditText.text.toString())
-                .enqueue(object : Callback<TrackResponse> {
-                    override fun onResponse(
-                        call: Call<TrackResponse>, response: Response<TrackResponse>
-                    ) {
-                        if (response.code() == 200) {
-                            tracks.clear()
-                            if (response.body()?.results?.isNotEmpty() == true) {
-                                tracks.addAll(response.body()?.results!!)
-                                adapter.notifyDataSetChanged()
-                            }
-                            if (tracks.isEmpty()) {
-                                showMessage(getString(R.string.nothing_find), "")
-                            } else {
-                                showMessage("", "")
-                            }
-                        } else {
-                            showMessage(getString(R.string.connection_problems), "")
 
-                        }
-
-                    }
-
-                    override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-                        showMessage(getString(R.string.connection_problems), "")
-                    }
-
-                })
-        }
 
 
 
@@ -154,10 +130,6 @@ class SearchActivity : AppCompatActivity() {
         }
 
         inputEditText.addTextChangedListener(simpleTextWatcher)
-
-
-
-
 
     } //onCreate
 
