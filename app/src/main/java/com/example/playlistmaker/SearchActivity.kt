@@ -1,6 +1,8 @@
 package com.example.playlistmaker
 
 
+import android.annotation.SuppressLint
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -83,27 +85,29 @@ class SearchActivity : AppCompatActivity() {
         fun findTracks() {
 
             if (inputEditText.text.isNotEmpty()) {
+                tracks.clear()
                 iTunesAPI.search(inputEditText.text.toString()).enqueue(object : Callback<TrackResponse> {
+                    @SuppressLint("ResourceType")
                     override fun onResponse(call: Call<TrackResponse>,
                                             response: Response<TrackResponse>) {
                         if (response.code() == 200) {
-                            tracks.clear()
                             if (response.body()?.results?.isNotEmpty() == true) {
+                                tracks.clear()
                                 tracks.addAll(response.body()?.results!!)
                                 adapter.notifyDataSetChanged()
                             }
                             if (tracks.isEmpty()) {
-                                showMessage(getString(R.string.nothing_find), "Раз" )
+                                showMessage(getString(R.string.nothing_find),R.drawable.nothingfind)
                             } else {
-                                showMessage("", "Два")
+                                showMessage("", R.drawable.nothingfind)
                             }
                         } else {
-                            showMessage(getString(R.string.connection_problems), "Три")
+                            showMessage(getString(R.string.connection_problems), R.drawable.connproplems)
                         }
                     }
 
                     override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-                        showMessage(getString(R.string.connection_problems), "Четыре")
+                        showMessage(getString(R.string.connection_problems), R.drawable.connproplems)
                     }
 
                 })
@@ -150,19 +154,18 @@ class SearchActivity : AppCompatActivity() {
         savedStr = savedInstanceState.getString(SAVED_STRING, savedStr)
     }
 
-    private fun showMessage(text: String, additionalMessage: String) {
+    private fun showMessage(text: String, image: ImageView) {
+        var buttonReload = findViewById<Button>(R.id.reloadButton)
+        buttonReload.visibility = View.VISIBLE
         if (text.isNotEmpty()) {
             tracks.clear()
             holderMessage.text = text
             holderMessage.visibility = View.VISIBLE
-            //holderImage.
+            holderImage = image
             holderImage.visibility = View.VISIBLE
-            if (additionalMessage.isNotEmpty()) {
-                Toast.makeText(applicationContext, additionalMessage, Toast.LENGTH_LONG)
-                    .show()
-            }
         } else {
             holderMessage.visibility = View.GONE
+            holderImage.visibility = View.GONE
         }
     }
 
