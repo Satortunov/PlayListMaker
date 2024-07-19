@@ -26,19 +26,20 @@ class SettingsActivity : AppCompatActivity() {
 
         val imageViewSupport = findViewById<ImageView>(R.id.asSupport)
         imageViewSupport.setOnClickListener {
-            val intentSupport = Intent().apply {
-                action = Intent.ACTION_SENDTO
-                setType("text/html");
-                data = Uri.parse(getString(R.string.support_address))
-                putExtra(Intent.EXTRA_SUBJECT,getString(R.string.support_theme))
-                putExtra(Intent.EXTRA_TEXT,getString(R.string.support_message))
-            }
-            startActivity(intentSupport)
+            val intentSuppurt = Intent(Intent.ACTION_SENDTO)
+            intentSuppurt.data = Uri.parse(getString(R.string.support_action))
+            intentSuppurt.putExtra(Intent.EXTRA_EMAIL,arrayOf(getString(R.string.support_address)))
+            intentSuppurt.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.support_theme))
+            intentSuppurt.putExtra(Intent.EXTRA_TEXT,getString(R.string.support_message))
+            startActivity(intentSuppurt)
         }
         val imageViewUserAgreement = findViewById<ImageView>(R.id.asUserAgreement)
         imageViewUserAgreement.setOnClickListener {
-               val displayIntent = Intent(this, AgreementActivity::class.java)
-            startActivity(displayIntent)
+            val intentAgreement = Intent().apply {
+                action = Intent.ACTION_VIEW
+                data = Uri.parse(getString(R.string.agreement_address))
+            }
+            startActivity(intentAgreement)
         }
     }
 }

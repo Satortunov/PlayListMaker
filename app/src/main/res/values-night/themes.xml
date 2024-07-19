@@ -8,6 +8,7 @@
     </style>
 
     <style name="ThemeOverlay.PlaylistMaker.Settings" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColor">@color/white</item>
         <item name="android:background">@color/black</item>
     </style>
 
