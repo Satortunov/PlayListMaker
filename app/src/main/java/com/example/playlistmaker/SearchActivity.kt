@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.*
 import android.widget.Button
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 
 
@@ -76,7 +77,6 @@ class SearchActivity : AppCompatActivity() {
 
 
         fun findTracks() {
-
             if (inputEditText.text.isNotEmpty()) {
                 tracks.clear()
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
@@ -123,8 +123,8 @@ class SearchActivity : AppCompatActivity() {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (inputEditText.text.isNotEmpty()) {
                    findTracks()
+                    true
                 }
-                true
             }
             false
         }
@@ -153,21 +153,21 @@ class SearchActivity : AppCompatActivity() {
 
     private fun showMessage(text: String, image: ImageView) {
         var buttonReload = findViewById<Button>(R.id.reloadButton)
-        buttonReload.visibility = View.VISIBLE
+        buttonReload.isVisible = true
         if (text.isNotEmpty()) {
             tracks.clear()
             holderMessage.text = text
-            holderMessage.visibility = View.VISIBLE
+            holderMessage.isVisible = true
             holderImage = image
-            holderImage.visibility = View.VISIBLE
+            holderImage.isVisible = true
         } else {
-            holderMessage.visibility = View.GONE
-            holderImage.visibility = View.GONE
+            holderMessage.isVisible = false
+            holderImage.isVisible = false
         }
     }
 
 
-    companion object {
+    private companion object {
         const val SAVED_STRING = "SAVED_STRING"
         const val SAVED_STR = ""
     }
