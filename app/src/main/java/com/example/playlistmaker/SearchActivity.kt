@@ -2,7 +2,6 @@ package com.example.playlistmaker
 
 
 import android.annotation.SuppressLint
-import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -14,13 +13,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.*
 import android.widget.Button
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
-
-import com.example.playlistmaker.iTunesAPI
-import com.example.playlistmaker.SearchAdapter
-import com.example.playlistmaker.Track
-import com.example.playlistmaker.TrackResponse
 
 
 import retrofit2.Call
@@ -86,10 +79,11 @@ class SearchActivity : AppCompatActivity() {
 
             if (inputEditText.text.isNotEmpty()) {
                 tracks.clear()
+                val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
                 iTunesAPI.search(inputEditText.text.toString()).enqueue(object : Callback<TrackResponse> {
                     @SuppressLint("ResourceType")
                     override fun onResponse(call: Call<TrackResponse>,
-                                            response: Response<TrackResponse>) {
+                                            response: Response<TrackResponse>) =
                         if (response.code() == 200) {
                             if (response.body()?.results?.isNotEmpty() == true) {
                                 tracks.clear()
@@ -97,17 +91,20 @@ class SearchActivity : AppCompatActivity() {
                                 adapter.notifyDataSetChanged()
                             }
                             if (tracks.isEmpty()) {
-                                showMessage(getString(R.string.nothing_find),R.drawable.nothingfind)
+                                imageHolder.setImageResource(R.drawable.nothingfind)
+                                showMessage(getString(R.string.nothing_find),imageHolder)
                             } else {
-                                showMessage("", R.drawable.nothingfind)
+                                imageHolder.setImageResource(R.drawable.nothingfind)
+                                showMessage("", imageHolder)
                             }
                         } else {
-                            showMessage(getString(R.string.connection_problems), R.drawable.connproplems)
+                            imageHolder.setImageResource(R.drawable.connproplems)
+                            showMessage(getString(R.string.connection_problems), imageHolder)
                         }
-                    }
 
                     override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-                        showMessage(getString(R.string.connection_problems), R.drawable.connproplems)
+                        imageHolder.setImageResource(R.drawable.connproplems)
+                        showMessage(getString(R.string.connection_problems), imageHolder)
                     }
 
                 })
