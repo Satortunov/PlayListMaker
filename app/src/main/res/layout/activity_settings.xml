@@ -26,25 +26,13 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/themeSwitcher"
+        android:text="Темная тема"
+        android:layout_marginHorizontal="@dimen/size_dp_18"
+        android:layout_gravity="start"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:visibility="visible"
-        android:padding="@dimen/size_dp_4">
-
-        <TextView
-            style="@style/TextSettingsViewStyle"
-            android:text="@string/as_dark_theme" />
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:layout_marginEnd="@dimen/size_dp_6"
-            android:layout_marginTop="@dimen/size_dp_10"
-            android:layout_marginBottom="@dimen/size_dp_10" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

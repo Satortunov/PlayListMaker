@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,12 +18,12 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         val imageViewShare = findViewById<ImageView>(R.id.asShare)
-            imageViewShare.setOnClickListener {
+        imageViewShare.setOnClickListener {
                 val intentShare = Intent(Intent.ACTION_SEND);
                 intentShare.setType("text/plain");
                 intentShare.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_app))
                 startActivity(Intent.createChooser(intentShare, "Sent Message"))
-            }
+        }
 
         val imageViewSupport = findViewById<ImageView>(R.id.asSupport)
         imageViewSupport.setOnClickListener {
@@ -40,6 +41,10 @@ class SettingsActivity : AppCompatActivity() {
                 data = Uri.parse(getString(R.string.agreement_address))
             }
             startActivity(intentAgreement)
+        }
+        val themeSwitcher = findViewById<SwitchMaterial>(R.id.themeSwitcher)
+        themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
+            (applicationContext as App).switchTheme(checked)
         }
     }
 }
