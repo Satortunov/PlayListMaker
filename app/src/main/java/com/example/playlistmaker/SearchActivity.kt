@@ -34,7 +34,6 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var holderMessage: TextView
     private lateinit var holderImage: ImageView
 
-
     private val tracks = ArrayList<Track>()
     private val adapter = SearchAdapter(tracks)
 
@@ -68,6 +67,7 @@ class SearchActivity : AppCompatActivity() {
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearButton.visibility = clearButtonVisibility(s)
+
             }
             override fun afterTextChanged(s: Editable?) {
                 savedStr = inputEditText.text.toString()
