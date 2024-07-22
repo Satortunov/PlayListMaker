@@ -8,18 +8,17 @@ import java.lang.reflect.Type
 
 
 const val TRACKS_LIST_KEY = "track_key"
+const val MAX_TRACKS = 10
 
 class SearchHistory {
 
-    val maxTracks = 10
-
-    fun readTrackList(sharedPreferences: SharedPreferences): ArrayList<Track> {
+    fun readTrackList(sharedPreferences: SharedPreferences):  ArrayList<Track> {
         val json = sharedPreferences.getString(TRACKS_LIST_KEY, null) ?: return ArrayList()
         val tracksList: Type = object : TypeToken<ArrayList<Track>?>() {}.type
         return Gson().fromJson(json, tracksList)
     }
 
-    fun writeTrackList(sharedPreferences: SharedPreferences, tracks: ArrayList<Track>) {
+    fun writeTrackList(sharedPreferences: SharedPreferences, tracks:  MutableList<Track>) {
         val json = Gson().toJson(tracks)
         sharedPreferences.edit()
             .putString(TRACKS_LIST_KEY, json)
@@ -32,9 +31,9 @@ class SearchHistory {
             .apply()
     }
 
-    fun setTrack(track: Track, sharedPreferences: SharedPreferences) {
+    fun setTrackList(sharedPreferences: SharedPreferences, track: Track) {
         val tracks = readTrackList(sharedPreferences)
-        if (!tracks.remove(track) && tracks.size >= maxTracks) tracks.removeAt(maxTracks - 1)
+        if (!tracks.remove(track) && tracks.size >= MAX_TRACKS) tracks.removeAt(MAX_TRACKS - 1)
         tracks.add(0, track)
         writeTrackList(sharedPreferences, tracks)
     }

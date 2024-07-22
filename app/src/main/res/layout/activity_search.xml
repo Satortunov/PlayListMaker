@@ -53,7 +53,6 @@
             android:layout_marginStart="@dimen/size_dp_10"
             />
 
-
         <ImageView
             android:id="@+id/clearIcon"
             android:layout_width="@dimen/size_dp_18"
@@ -68,16 +67,6 @@
             />
     </FrameLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:id="@+id/searchedTracks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:itemCount="1"
-        tools:listitem="@layout/track_view"/>
-
     <LinearLayout
         android:orientation="vertical"
         tools:itemCount="3"
@@ -86,23 +75,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="110dp"
         android:gravity="center"
+        android:visibility="gone"
         tools:listitem="@layout/track_view">
-
-
 
         <ImageView
             android:id="@+id/holderMessageImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            />
 
         <TextView
             android:id="@+id/holderMessageText"
             style="@style/holderTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_dp_16"
-            android:visibility="gone"/>
+            android:layout_marginTop="@dimen/size_dp_16" />
 
         <Button
             android:id="@+id/reloadButton"
@@ -110,13 +97,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_dp_24"
-            android:visibility="gone"
             android:text="@string/reload"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:id="@+id/searchedTracks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:itemCount="1"
+            tools:listitem="@layout/track_view"/>
 
     </LinearLayout>
 
 
-    <LinearLayout
+   <LinearLayout
             android:id="@+id/searchHistory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -131,13 +126,13 @@
                 android:gravity="center"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/searchHistoryList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="3"
-                tools:listitem="@layout/track_view"/>
+               app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+               android:id="@+id/searchedHistoryTracks"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               tools:itemCount="3"
+               tools:listitem="@layout/track_view"/>
 
             <Button
                 android:id="@+id/clearHistoryButton"

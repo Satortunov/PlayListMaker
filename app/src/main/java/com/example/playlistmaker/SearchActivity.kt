@@ -2,57 +2,90 @@ package com.example.playlistmaker
 
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.*
-import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
-
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
 class SearchActivity : AppCompatActivity() {
 
     private var savedStr: String = SAVED_STR
-
     private val itunesAPIUrl = "https://itunes.apple.com"
     private val retrofit = Retrofit.Builder().baseUrl(itunesAPIUrl).addConverterFactory(GsonConverterFactory.create()).build()
-
     private val iTunesAPI = retrofit.create(iTunesAPI::class.java)
     private lateinit var holderMessage: TextView
     private lateinit var holderImage: ImageView
-
     private val tracks = ArrayList<Track>()
+    private val historyOfSearch = SearchHistory()
+    private lateinit var sharedPreferences: SharedPreferences
     private val adapter = SearchAdapter(tracks)
+        { historyOfSearch.setTrackList(sharedPreferences, it)  }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-       val imageViewSearch = findViewById<ImageView>(R.id.aseSearch)
+        val imageViewSearch = findViewById<ImageView>(R.id.aseSearch)
+        val inputEditText = findViewById<EditText>(R.id.enterEditText)
+        val clearIcon = findViewById<ImageView>(R.id.clearIcon)
+        val searchedTracks = findViewById<RecyclerView>(R.id.searchedTracks)
+        val searchedHistoryTracks = findViewById<RecyclerView>(R.id.searchedHistoryTracks)
+        val clearHistoryButton = findViewById<Button>(R.id.clearHistoryButton)
+        val searchedHistory = findViewById<LinearLayout>(R.id.searchHistory)
+        val placeHolderMessage = findViewById<LinearLayout>(R.id.placeholderMessage)
+
+        var toastString = ""
+        val toast = Toast.makeText(applicationContext, toastString, Toast.LENGTH_SHORT)
+
+
+        holderMessage = findViewById(R.id.holderMessageText)
+        holderImage = findViewById(R.id.holderMessageImage)
+        sharedPreferences = getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE)
+
+        inputEditText.requestFocus()
+        searchedTracks.adapter = adapter
+        searchedHistoryTracks.adapter = adapter
+        searchedHistory.isVisible = false
+        placeHolderMessage.isVisible = false
+
+
+        /*toastString = ""
+        toast.setText(toastString)
+        toast.show()*/
+
+        if (searchedHistoryTracks.size != 0) {
+            searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
+            searchedHistory.isVisible = true
+            }
+
         imageViewSearch.setOnClickListener {
             finish()
         }
-        holderMessage = findViewById(R.id.holderMessageText)
-        holderImage = findViewById(R.id.holderMessageImage)
 
-        val inputEditText = findViewById<EditText>(R.id.enterEditText)
-        val clearButton = findViewById<ImageView>(R.id.clearIcon)
-        inputEditText.requestFocus()
+        inputEditText.setOnFocusChangeListener { view, hasFocus ->
+           if (hasFocus && inputEditText.text.isEmpty() && searchedHistoryTracks.size != 0) {
+               searchedHistory.isVisible = false
+           } else {
+               searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
+               searchedHistory.isVisible = true
+              }
+        }
 
-        clearButton.setOnClickListener {
+        clearIcon.setOnClickListener {
             inputEditText.setText("")
             val view: View? = this.currentFocus
             if (view != null) {
@@ -61,12 +94,26 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
+        clearHistoryButton.setOnClickListener {
+            historyOfSearch.clearAllTracks(sharedPreferences)
+            searchedHistory.isVisible = false
+            searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
+
+         }
+
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                clearButton.visibility = clearButtonVisibility(s)
+                clearIcon.isVisible = clearButtonVisibility(s)
+                val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
+                if (inputEditText.hasFocus() && s?.isEmpty() == true) {
+                    showMessage("", imageHolder)
+                    if (historyOfSearch.readTrackList(sharedPreferences).isEmpty()) {searchedHistory.isVisible = false}
+                } else{
+                    searchedHistory.isVisible = true
+                }
+                searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
 
             }
             override fun afterTextChanged(s: Editable?) {
@@ -75,8 +122,9 @@ class SearchActivity : AppCompatActivity() {
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)
 
-
         fun findTracks() {
+            searchedHistory.isVisible = false
+            placeHolderMessage.isVisible = true
             if (inputEditText.text.isNotEmpty()) {
                 tracks.clear()
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
@@ -109,7 +157,6 @@ class SearchActivity : AppCompatActivity() {
 
                 })
             }
-
         } //findTracks
 
         val searchedTracksList = findViewById<RecyclerView>(R.id.searchedTracks)
@@ -133,11 +180,11 @@ class SearchActivity : AppCompatActivity() {
 
     } //onCreate
 
-    private fun clearButtonVisibility(s: CharSequence?): Int {
+    private fun clearButtonVisibility(s: CharSequence?): Boolean {
         return if (s.isNullOrEmpty()) {
-            View.GONE
+            false
         } else {
-            View.VISIBLE
+            true
         }
     }
 
