@@ -59,10 +59,19 @@ class SearchActivity : AppCompatActivity() {
         searchedHistoryTracks.adapter = adapter
 
         //Toast.makeText(this@SearchActivity, historyOfSearch.readTrackList(sharedPreferences).size.toString(), Toast.LENGTH_SHORT).show()
+        fun showHistory(show : Boolean) {
+            if (show == true) {
+                searchedHistory.isVisible = true
+                clearHistoryButton.isVisible = true
+            } else {
+                searchedHistory.isVisible = false
+                clearHistoryButton.isVisible = false
+            }
+        }
 
         if (historyOfSearch.readTrackList(sharedPreferences).size > 0) {
             searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
-            searchedHistory.isVisible = true
+            showHistory(true)
         }
 
         imageViewSearch.setOnClickListener {
@@ -70,7 +79,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         inputEditText.setOnFocusChangeListener { view, hasFocus ->
-            searchedHistory.isVisible = if (hasFocus && inputEditText.text.isEmpty() ) true else false
+            showHistory(if (hasFocus && inputEditText.text.isEmpty() ) true else false)
         }
 
         clearIcon.setOnClickListener {
@@ -84,7 +93,7 @@ class SearchActivity : AppCompatActivity() {
 
         clearHistoryButton.setOnClickListener {
             historyOfSearch.clearAllTracks(sharedPreferences)
-            searchedHistory.isVisible = false
+            showHistory(false)
             searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences) ) {}
 
          }
@@ -144,6 +153,8 @@ class SearchActivity : AppCompatActivity() {
             }
         } //findTracks
 
+
+
         val searchedTracksList = findViewById<RecyclerView>(R.id.searchedTracks)
         searchedTracksList.adapter = adapter
 
@@ -182,6 +193,7 @@ class SearchActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         savedStr = savedInstanceState.getString(SAVED_STRING, savedStr)
     }
+
 
     private fun showMessage(text: String, image: ImageView) {
         if (text.isNotEmpty()) {
