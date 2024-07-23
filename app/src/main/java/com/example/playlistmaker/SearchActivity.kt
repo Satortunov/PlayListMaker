@@ -29,6 +29,7 @@ class SearchActivity : AppCompatActivity() {
     private val iTunesAPI = retrofit.create(iTunesAPI::class.java)
     private lateinit var holderMessage: TextView
     private lateinit var holderImage: ImageView
+    private lateinit var reloadButton: Button
     private val tracks = ArrayList<Track>()
     private val historyOfSearch = SearchHistory()
     private lateinit var sharedPreferences: SharedPreferences
@@ -36,6 +37,7 @@ class SearchActivity : AppCompatActivity() {
         { historyOfSearch.setTrackList(sharedPreferences, it)  }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
@@ -48,41 +50,27 @@ class SearchActivity : AppCompatActivity() {
         val searchedHistory = findViewById<LinearLayout>(R.id.searchHistory)
         val placeHolderMessage = findViewById<LinearLayout>(R.id.placeholderMessage)
 
-        var toastString = ""
-        val toast = Toast.makeText(applicationContext, toastString, Toast.LENGTH_SHORT)
-
 
         holderMessage = findViewById(R.id.holderMessageText)
         holderImage = findViewById(R.id.holderMessageImage)
         sharedPreferences = getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE)
-
+        reloadButton = findViewById<Button>(R.id.reloadButton)
         inputEditText.requestFocus()
-        searchedTracks.adapter = adapter
         searchedHistoryTracks.adapter = adapter
-        searchedHistory.isVisible = false
-        placeHolderMessage.isVisible = false
 
+        //Toast.makeText(this@SearchActivity, historyOfSearch.readTrackList(sharedPreferences).size.toString(), Toast.LENGTH_SHORT).show()
 
-        /*toastString = ""
-        toast.setText(toastString)
-        toast.show()*/
-
-        if (searchedHistoryTracks.size != 0) {
+        if (historyOfSearch.readTrackList(sharedPreferences).size > 0) {
             searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
             searchedHistory.isVisible = true
-            }
+        }
 
         imageViewSearch.setOnClickListener {
             finish()
         }
 
         inputEditText.setOnFocusChangeListener { view, hasFocus ->
-           if (hasFocus && inputEditText.text.isEmpty() && searchedHistoryTracks.size != 0) {
-               searchedHistory.isVisible = false
-           } else {
-               searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
-               searchedHistory.isVisible = true
-              }
+            searchedHistory.isVisible = if (hasFocus && inputEditText.text.isEmpty() ) true else false
         }
 
         clearIcon.setOnClickListener {
@@ -97,7 +85,7 @@ class SearchActivity : AppCompatActivity() {
         clearHistoryButton.setOnClickListener {
             historyOfSearch.clearAllTracks(sharedPreferences)
             searchedHistory.isVisible = false
-            searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
+            searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences) ) {}
 
          }
 
@@ -108,12 +96,9 @@ class SearchActivity : AppCompatActivity() {
                 clearIcon.isVisible = clearButtonVisibility(s)
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
-                    showMessage("", imageHolder)
-                    if (historyOfSearch.readTrackList(sharedPreferences).isEmpty()) {searchedHistory.isVisible = false}
-                } else{
-                    searchedHistory.isVisible = true
-                }
+                    showMessage("", imageHolder)}
                 searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
+                searchedHistory.isVisible = if (historyOfSearch.readTrackList(sharedPreferences).isEmpty()) false else true
 
             }
             override fun afterTextChanged(s: Editable?) {
@@ -123,8 +108,8 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.addTextChangedListener(simpleTextWatcher)
 
         fun findTracks() {
+            placeHolderMessage.isVisible = false
             searchedHistory.isVisible = false
-            placeHolderMessage.isVisible = true
             if (inputEditText.text.isNotEmpty()) {
                 tracks.clear()
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
@@ -161,15 +146,19 @@ class SearchActivity : AppCompatActivity() {
 
         val searchedTracksList = findViewById<RecyclerView>(R.id.searchedTracks)
         searchedTracksList.adapter = adapter
-        val reloadButton = findViewById<Button>(R.id.reloadButton)
+
+
         reloadButton.setOnClickListener {
             findTracks()
+            placeHolderMessage.isVisible = true
+
         }
 
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (inputEditText.text.isNotEmpty()) {
-                   findTracks()
+                    findTracks()
+                    placeHolderMessage.isVisible = true
                     true
                 }
             }
@@ -181,11 +170,7 @@ class SearchActivity : AppCompatActivity() {
     } //onCreate
 
     private fun clearButtonVisibility(s: CharSequence?): Boolean {
-        return if (s.isNullOrEmpty()) {
-            false
-        } else {
-            true
-        }
+        return if (s.isNullOrEmpty()) false else true
     }
 
         override fun onSaveInstanceState(outState: Bundle) {
@@ -199,17 +184,17 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showMessage(text: String, image: ImageView) {
-        var buttonReload = findViewById<Button>(R.id.reloadButton)
-        buttonReload.isVisible = true
         if (text.isNotEmpty()) {
             tracks.clear()
             holderMessage.text = text
             holderMessage.isVisible = true
             holderImage = image
             holderImage.isVisible = true
+            reloadButton.isVisible = true
         } else {
             holderMessage.isVisible = false
             holderImage.isVisible = false
+            reloadButton.isVisible = false
         }
     }
 

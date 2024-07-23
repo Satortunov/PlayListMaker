@@ -68,18 +68,25 @@
     </FrameLayout>
 
     <LinearLayout
-        android:orientation="vertical"
-        tools:itemCount="3"
         android:id="@+id/placeholderMessage"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="110dp"
         android:gravity="center"
-        android:visibility="gone"
-        tools:listitem="@layout/track_view">
+        android:visibility="gone">
+
+        <androidx.recyclerview.widget.RecyclerView
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:id="@+id/searchedTracks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:itemCount="10"
+            tools:listitem="@layout/track_view"/>
 
         <ImageView
             android:id="@+id/holderMessageImage"
+            android:layout_marginTop="110dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
@@ -97,16 +104,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_dp_24"
+            android:visibility="gone"
             android:text="@string/reload"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:id="@+id/searchedTracks"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:itemCount="1"
-            tools:listitem="@layout/track_view"/>
 
     </LinearLayout>
 
@@ -114,11 +113,13 @@
    <LinearLayout
             android:id="@+id/searchHistory"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:gravity="center"
             android:visibility="gone">
 
             <TextView
+                android:id="@+id/youFind"
                 style="@style/holderTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_dp_52"
@@ -141,6 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/size_dp_24"
+                android:gravity="bottom"
                 android:text="@string/clear_history"/>
     </LinearLayout>
 

@@ -18,7 +18,7 @@ class SearchHistory {
         return Gson().fromJson(json, tracksList)
     }
 
-    fun writeTrackList(sharedPreferences: SharedPreferences, tracks:  MutableList<Track>) {
+    fun writeTrackList(sharedPreferences: SharedPreferences, tracks: ArrayList<Track>) {
         val json = Gson().toJson(tracks)
         sharedPreferences.edit()
             .putString(TRACKS_LIST_KEY, json)
