@@ -38,5 +38,9 @@ class App : Application() {
         )
         sharedPreferences.edit().putBoolean(THEME_KEY, darkTheme).apply()
     }
-
+    fun setThemeSwitch(darkThemeEnabled: Boolean){
+        getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE).edit()
+            .putBoolean(THEME_KEY, darkThemeEnabled)
+            .apply()
+    }
 }

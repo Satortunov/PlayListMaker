@@ -58,20 +58,9 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.requestFocus()
         searchedHistoryTracks.adapter = adapter
 
-        //Toast.makeText(this@SearchActivity, historyOfSearch.readTrackList(sharedPreferences).size.toString(), Toast.LENGTH_SHORT).show()
-        fun showHistory(show : Boolean) {
-            if (show == true) {
-                searchedHistory.isVisible = true
-                clearHistoryButton.isVisible = true
-            } else {
-                searchedHistory.isVisible = false
-                clearHistoryButton.isVisible = false
-            }
-        }
-
         if (historyOfSearch.readTrackList(sharedPreferences).size > 0) {
             searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
-            showHistory(true)
+            searchedHistory.isVisible = true
         }
 
         imageViewSearch.setOnClickListener {
@@ -79,7 +68,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         inputEditText.setOnFocusChangeListener { view, hasFocus ->
-            showHistory(if (hasFocus && inputEditText.text.isEmpty() ) true else false)
+             searchedHistory.isVisible = if (hasFocus && inputEditText.text.isEmpty() ) true else false
         }
 
         clearIcon.setOnClickListener {
@@ -93,7 +82,7 @@ class SearchActivity : AppCompatActivity() {
 
         clearHistoryButton.setOnClickListener {
             historyOfSearch.clearAllTracks(sharedPreferences)
-            showHistory(false)
+            searchedHistory.isVisible = false
             searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences) ) {}
 
          }
@@ -153,16 +142,12 @@ class SearchActivity : AppCompatActivity() {
             }
         } //findTracks
 
-
-
         val searchedTracksList = findViewById<RecyclerView>(R.id.searchedTracks)
         searchedTracksList.adapter = adapter
-
 
         reloadButton.setOnClickListener {
             findTracks()
             placeHolderMessage.isVisible = true
-
         }
 
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
@@ -194,7 +179,6 @@ class SearchActivity : AppCompatActivity() {
         savedStr = savedInstanceState.getString(SAVED_STRING, savedStr)
     }
 
-
     private fun showMessage(text: String, image: ImageView) {
         if (text.isNotEmpty()) {
             tracks.clear()
@@ -209,7 +193,6 @@ class SearchActivity : AppCompatActivity() {
             reloadButton.isVisible = false
         }
     }
-
 
     private companion object {
         const val SAVED_STRING = "SAVED_STRING"

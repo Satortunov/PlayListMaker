@@ -98,8 +98,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_dp_16" />
 
-
-
         <Button
             android:id="@+id/reloadButton"
             style="@style/holderButtonStyle"
@@ -109,46 +107,43 @@
             android:visibility="gone"
             android:text="@string/reload"/>
 
-       </LinearLayout>
+    </LinearLayout>
 
 
-   <LinearLayout
-            android:id="@+id/searchHistory"
+    <LinearLayout
+        android:id="@+id/searchHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/youFind"
+            style="@style/holderTextStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/size_dp_52"
+            android:text="@string/lookingfor"
+            android:gravity="center"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:id="@+id/searchedHistoryTracks"
+            android:layout_width="match_parent"
+            android:layout_height="183dp"
             android:orientation="vertical"
+            tools:itemCount="3"
+            tools:listitem="@layout/track_view"/>
+
+        <Button
+            android:id="@+id/clearHistoryButton"
+            style="@style/holderButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/size_dp_24"
             android:gravity="center"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/youFind"
-                style="@style/holderTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_dp_52"
-                android:text="@string/lookingfor"
-                android:gravity="center"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-               app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-               android:id="@+id/searchedHistoryTracks"
-               android:layout_width="match_parent"
-               android:layout_height="183dp"
-               android:orientation="vertical"
-               tools:itemCount="3"
-               tools:listitem="@layout/track_view"/>
-
-       <Button
-                android:id="@+id/clearHistoryButton"
-                style="@style/holderButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/size_dp_24"
-                android:gravity="center"
-                android:text="@string/clear_history"
-                android:visibility="gone"/>
+            android:text="@string/clear_history" />
     </LinearLayout>
 
 </LinearLayout>
-
-

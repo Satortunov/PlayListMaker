@@ -44,14 +44,14 @@ class SettingsActivity : AppCompatActivity() {
             }
             startActivity(intentAgreement)
         }
+
         val themeSwitcher = findViewById<SwitchMaterial>(R.id.themeSwitcher)
+        themeSwitcher.isChecked = getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE).getBoolean(THEME_KEY, false)
+
         themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
             (applicationContext as App).switchTheme(checked)
-            switcher.isChecked =
-                AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+            (applicationContext as App).setThemeSwitch(checked)
         }
-
-
 
     }
 }
