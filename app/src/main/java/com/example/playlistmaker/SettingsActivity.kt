@@ -8,7 +8,6 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.switchmaterial.SwitchMaterial
 
-
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +35,7 @@ class SettingsActivity : AppCompatActivity() {
             intentSuppurt.putExtra(Intent.EXTRA_TEXT, getString(R.string.support_message))
             startActivity(intentSuppurt)
         }
+
         val imageViewUserAgreement = findViewById<ImageView>(R.id.asUserAgreement)
         imageViewUserAgreement.setOnClickListener {
             val intentAgreement = Intent().apply {
