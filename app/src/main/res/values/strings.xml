@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name" translatable="false">Playlist Maker</string>
+    <string name="am_search">Поиск</string>
+    <string name="am_mediatec">Медиатека</string>
+    <string name="am_settings">Настройки</string>
+    <string name="as_dark_theme">Темная тема</string>
+    <string name="as_share">Поделиться приложением</string>
+    <string name="as_support">Написать в поддержку</string>
+    <string name="as_user_agreement">Пользовательское соглашение</string>
+    <string name="aa_user_agreement">Соглашение</string>
+    <string name="share_app" translatable="false">https://practicum.yandex.ru/android-developer/</string>
+    <string name="share_app_sent" translatable="false">Sent Message</string>
+    <string name="support_action" translatable="false">mailto:</string>
+    <string name="support_address" translatable="false">mailto:satortunov@yandex.ru</string>
+    <string name="support_theme">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="support_message">Спасибо разработчикам и разработчицам за крутое приложение!</string>
+    <string name="agreement_address" translatable="false">https://yandex.ru/legal/practicum_offer/</string>
+    <string name="musician_name" translatable="false">Unamed</string>
+    <string name="track_name" translatable="false">No Raply</string>
+    <string name="track_time" translatable="false">00:00</string>
+    <string name="connection_problems"> Проблемы со связью \n\ \n\ Загрузка не удалась.  Проверьте \n\ подключение к интернету</string>
+    <string name="nothing_find">Ничего не нашлось</string>
+    <string name="reload">Обновить</string>
+    <string name="clear_history">Очистить историю</string>
+    <string name="lookingfor">Вы искали</string>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/Theme.PlaylistMaker"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/size_dp_16"
+    tools:context=".MainActivity">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:visibility="visible"
+        android:paddingBottom="@dimen/size_dp_24">
+
+    <TextView style="@style/TextViewStyle"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+    />
+    </FrameLayout>
+
+    <Button style="@style/ButtonStyle"
+        android:id="@+id/amSearch"
+        android:text="@string/am_search"
+        app:icon="@drawable/search" />
+
+    <Button style="@style/ButtonStyle"
+        android:id="@+id/amMediatec"
+        android:text="@string/am_mediatec"
+        app:icon="@drawable/mediatec" />
+
+    <Button style="@style/ButtonStyle"
+        android:id="@+id/amSettings"
+        android:text="@string/am_settings"
+        app:icon="@drawable/settings" />
+
+
+
+
+</LinearLayout>
+

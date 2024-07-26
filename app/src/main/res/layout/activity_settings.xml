@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.PlaylistMaker.Settings"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:visibility="visible"
+        android:padding="@dimen/size_dp_4"
+        android:layout_marginBottom="@dimen/size_dp_24">
+
+        <ImageView style="@style/ImageViewStyle"
+            android:id="@+id/asSettings"
+            android:src="@drawable/arrowback"/>
+
+        <TextView style="@style/TextViewStyle"
+            android:text="@string/am_settings"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/themeSwitcher"
+        android:text="Темная тема"
+        android:layout_marginHorizontal="@dimen/size_dp_18"
+        android:layout_gravity="start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:visibility="visible"
+        android:padding="@dimen/size_dp_4"
+        tools:ignore="ExtraText">
+
+        <TextView
+            style="@style/TextSettingsViewStyle"
+            android:text="@string/as_share" />
+
+        <ImageView
+            style="@style/ImageSettingViewStyle"
+            android:id="@+id/asShare"
+            android:src="@drawable/share" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:visibility="visible"
+        android:padding="@dimen/size_dp_4"
+        tools:ignore="ExtraText">
+
+
+        <TextView
+            style="@style/TextSettingsViewStyle"
+            android:text="@string/as_support" />
+
+        <ImageView style="@style/ImageSettingViewStyle"
+            android:id="@+id/asSupport"
+            android:src="@drawable/support"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:visibility="visible"
+        android:padding="@dimen/size_dp_4"
+        tools:ignore="ExtraText">
+
+        <TextView style="@style/TextSettingsViewStyle"
+            android:text="@string/as_user_agreement"/>
+
+        <ImageView style="@style/ImageSettingViewStyle"
+            android:id="@+id/asUserAgreement"
+            android:src="@drawable/arrowforward" />
+   </RelativeLayout>
+
+</LinearLayout>
+

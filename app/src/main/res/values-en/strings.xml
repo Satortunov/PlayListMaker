@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="am_search">Search</string>
+    <string name="am_mediatec">Mediatec</string>
+    <string name="am_settings">Settings</string>
+    <string name="as_dark_theme">Dark theme</string>
+    <string name="as_share">Share app</string>
+    <string name="as_support">Write to support</string>
+    <string name="as_user_agreement">User agreement</string>
+    <string name="aa_user_agreement">Agreement</string>
+    <string name="support_theme">Message to Play List Maker developers</string>
+    <string name="support_message">Thank you for this cool app</string>
+    <string name="connection_problems">No Internet connections</string>
+    <string name="nothing_find">I find nothing</string>
+    <string name="reload">Reload</string>
+    <string name="clear_history">Clear history</string>
+    <string name="lookingfor">You were looking for</string>
+</resources>
