@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import android.content.SharedPreferences
 
 
-
 const val PLM_PREFERENCES = "playlist_maker_preferences"
 const val THEME_KEY = "theme_key"
 

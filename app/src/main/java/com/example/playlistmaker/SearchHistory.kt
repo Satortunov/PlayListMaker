@@ -6,7 +6,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
-
 const val TRACKS_LIST_KEY = "track_key"
 const val MAX_TRACKS = 10
 

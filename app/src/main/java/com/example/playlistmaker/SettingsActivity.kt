@@ -52,6 +52,5 @@ class SettingsActivity : AppCompatActivity() {
             (applicationContext as App).switchTheme(checked)
             (applicationContext as App).setThemeSwitch(checked)
         }
-
     }
 }

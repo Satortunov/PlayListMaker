@@ -7,6 +7,5 @@ data class Track (
         val artworkUrl100: String
 )
 {
-
 }
 
