@@ -33,19 +33,15 @@
             android:id="@+id/enterEditText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_dp_36"
-            android:autofillHints=""
+            android:layout_weight="1"
             android:background="@drawable/round"
+            android:paddingLeft="@dimen/size_dp_36"
             android:hint="@string/am_search"
             android:textColorHint="@color/hint_color"
             android:textColor="@color/black"
-            android:cursorVisible="true"
             android:textCursorDrawable="@color/cursor_color"
             android:imeOptions="actionDone"
-            android:singleLine="true"
-            android:paddingStart="@dimen/size_dp_36"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            tools:ignore="RtlSymmetry" />
+            android:singleLine="true" />
 
         <ImageView
             android:id="@+id/searchIcon"
@@ -53,6 +49,7 @@
             android:layout_width="@dimen/size_dp_18"
             android:layout_height="@dimen/size_dp_18"
             android:layout_marginTop="@dimen/size_dp_10"
+            android:layout_weight="1"
             android:background="@color/search_background"
             android:layout_marginStart="@dimen/size_dp_10"
             />
@@ -61,6 +58,7 @@
             android:id="@+id/clearIcon"
             android:layout_width="@dimen/size_dp_18"
             android:layout_height="@dimen/size_dp_18"
+            android:layout_weight="1"
             android:layout_marginTop="@dimen/size_dp_10"
             android:background="@color/search_background"
             android:layout_gravity="end"
