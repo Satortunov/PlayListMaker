@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/aseSearch"
+            android:id="@+id/searchBack"
             style="@style/ImageViewStyle"
             android:src="@drawable/arrowback"/>
 
@@ -39,6 +39,7 @@
             android:hint="@string/am_search"
             android:textColorHint="@color/hint_color"
             android:textColor="@color/black"
+            android:textCursorDrawable="@color/cursor_color"
             android:imeOptions="actionDone"
             android:singleLine="true" />
 
@@ -123,6 +124,7 @@
             style="@style/holderTextStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_dp_52"
+            android:layout_weight="1"
             android:text="@string/lookingfor"
             android:gravity="center"/>
 
@@ -130,9 +132,9 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:id="@+id/searchedHistoryTracks"
             android:layout_width="match_parent"
-            android:layout_height="183dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="211"
             android:orientation="vertical"
-            tools:itemCount="3"
             tools:listitem="@layout/track_view"/>
 
         <Button
@@ -140,6 +142,7 @@
             style="@style/holderButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/size_dp_24"
             android:gravity="center"
