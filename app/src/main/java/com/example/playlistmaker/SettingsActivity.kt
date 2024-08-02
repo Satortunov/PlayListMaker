@@ -43,6 +43,7 @@ class SettingsActivity : AppCompatActivity() {
                 data = Uri.parse(getString(R.string.agreement_address))
             }
             startActivity(intentAgreement)
+
         }
 
         val themeSwitcher = findViewById<SwitchMaterial>(R.id.themeSwitcher)
@@ -51,6 +52,7 @@ class SettingsActivity : AppCompatActivity() {
         themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
             (applicationContext as App).switchTheme(checked)
             (applicationContext as App).setThemeSwitch(checked)
+
         }
     }
 }

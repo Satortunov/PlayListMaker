@@ -178,6 +178,9 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showMessage(text: String, image: ImageView) {
+        var buttonReload = findViewById<Button>(R.id.reloadButton)
+        buttonReload.isVisible = true
+
         if (text.isNotEmpty()) {
             tracks.clear()
             holderMessage.text = text
@@ -192,7 +195,7 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private companion object {
+   private companion object {
         const val SAVED_STRING = "SAVED_STRING"
         const val SAVED_STR = ""
     }
