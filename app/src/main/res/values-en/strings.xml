@@ -13,4 +13,6 @@
     <string name="connection_problems">No Internet connections</string>
     <string name="nothing_find">I find nothing</string>
     <string name="reload">Reload</string>
+    <string name="clear_history">Clear history</string>
+    <string name="lookingfor">You were looking for</string>
 </resources>

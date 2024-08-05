@@ -2,25 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/size_dp_61"
+    android:orientation="horizontal"
     android:padding="@dimen/size_dp_12">
 
     <ImageView
         android:id="@+id/artworkUrl"
         style="@style/Cover_Style"
-        android:layout_width="@dimen/size_dp_45"
-        android:layout_height="@dimen/size_dp_45"
-        android:scaleType="fitCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/placeholder" />
+        android:scaleType="fitCenter"
+        android:src="@drawable/placeholder"/>
 
     <LinearLayout
         style="@style/Cover_Style"
         android:layout_width="@dimen/size_dp_0"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:layout_marginHorizontal="@dimen/size_dp_8"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_marginHorizontal="@dimen/size_dp_8">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/trackName"
@@ -28,8 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
             android:text="@string/track_name" />
 
         <LinearLayout
@@ -40,32 +41,31 @@
             <TextView
                 android:id="@+id/artistName"
                 style="@style/Track_Another_Info_Style"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="fill_horizontal"
-                android:maxLines="1"
+                android:layout_weight="1"
                 android:ellipsize="end"
+                android:maxLines="1"
                 android:text="@string/musician_name" />
 
             <TextView
                 android:id="@+id/trackTime"
                 style="@style/Track_Another_Info_Style"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
                 android:layout_gravity="fill_horizontal"
-                android:text="@string/track_time"
-                android:drawableStart="@drawable/point" />
+                android:layout_weight="0"
+                android:drawableStart="@drawable/point"
+                android:text="@string/track_time" />
         </LinearLayout>
-    </LinearLayout>
 
+    </LinearLayout>
     <ImageView
         android:id="@+id/searchArrow"
-        android:layout_width="@dimen/size_dp_24"
-        android:layout_height="@dimen/size_dp_24"
-        android:layout_gravity="center"
-        android:layout_marginVertical="@dimen/size_dp_10"
+        android:layout_width="@dimen/size_dp_8"
+        android:layout_height="@dimen/size_dp_14"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="@dimen/size_dp_5"
         android:src="@drawable/arrow_forward_list" />
-
 </LinearLayout>
