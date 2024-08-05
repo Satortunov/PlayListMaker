@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -52,6 +53,7 @@ class SearchActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE)
         reloadButton = findViewById<Button>(R.id.reloadButton)
         inputEditText.requestFocus()
+        inputEditText.setRawInputType(InputType.TYPE_CLASS_TEXT)
         inputEditText.isCursorVisible = true
         searchedHistoryTracks.adapter = adapter
 
