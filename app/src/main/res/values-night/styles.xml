@@ -9,4 +9,9 @@
         <item name="cornerRadius">@dimen/size_dp_54</item>
         <item name="android:shadowRadius">0</item>
     </style>
+
+    <style name="editTextStyle">
+        <item name="android:textColorHint">@color/black_text</item>
+        <item name="android:textColor">@color/black_text</item>
+    </style>
 </resources>

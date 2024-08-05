@@ -28,7 +28,7 @@
     <Button style="@style/ButtonStyle"
         android:id="@+id/amSearch"
         android:text="@string/am_search"
-        app:icon="@drawable/search" />
+        app:icon="@drawable/search"/>
 
     <Button style="@style/ButtonStyle"
         android:id="@+id/amMediatec"
