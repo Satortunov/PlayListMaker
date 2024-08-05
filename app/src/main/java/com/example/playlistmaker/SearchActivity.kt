@@ -39,21 +39,20 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        val imageViewSearch = findViewById<ImageView>(R.id.aseSearch)
+        val imageViewSearch = findViewById<ImageView>(R.id.searchBack)
         val inputEditText = findViewById<EditText>(R.id.enterEditText)
         val clearIcon = findViewById<ImageView>(R.id.clearIcon)
-        val searchedTracks = findViewById<RecyclerView>(R.id.searchedTracks)
         val searchedHistoryTracks = findViewById<RecyclerView>(R.id.searchedHistoryTracks)
         val clearHistoryButton = findViewById<Button>(R.id.clearHistoryButton)
         val searchedHistory = findViewById<LinearLayout>(R.id.searchHistory)
         val placeHolderMessage = findViewById<LinearLayout>(R.id.placeholderMessage)
-
 
         holderMessage = findViewById(R.id.holderMessageText)
         holderImage = findViewById(R.id.holderMessageImage)
         sharedPreferences = getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE)
         reloadButton = findViewById<Button>(R.id.reloadButton)
         inputEditText.requestFocus()
+        inputEditText.isCursorVisible = true
         searchedHistoryTracks.adapter = adapter
 
         if (historyOfSearch.readTrackList(sharedPreferences).size > 0) {
@@ -66,7 +65,8 @@ class SearchActivity : AppCompatActivity() {
         }
 
         inputEditText.setOnFocusChangeListener { view, hasFocus ->
-             searchedHistory.isVisible = if (hasFocus && inputEditText.text.isEmpty() ) true else false
+             searchedHistory.isVisible = if (hasFocus && inputEditText.text.isEmpty() && !historyOfSearch.readTrackList(sharedPreferences).isEmpty()) true else false
+            inputEditText.isCursorVisible = true
         }
 
         clearIcon.setOnClickListener {
@@ -92,7 +92,7 @@ class SearchActivity : AppCompatActivity() {
                 clearIcon.isVisible = clearButtonVisibility(s)
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
-                    showMessage("", imageHolder)}
+                    showMessage("", imageHolder,false)}
                 searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
                 searchedHistory.isVisible = if (historyOfSearch.readTrackList(sharedPreferences).isEmpty()) false else true
 
@@ -121,19 +121,19 @@ class SearchActivity : AppCompatActivity() {
                             }
                             if (tracks.isEmpty()) {
                                 imageHolder.setImageResource(R.drawable.nothingfind)
-                                showMessage(getString(R.string.nothing_find),imageHolder)
+                                showMessage(getString(R.string.nothing_find),imageHolder, false)
                             } else {
                                 imageHolder.setImageResource(R.drawable.nothingfind)
-                                showMessage("", imageHolder)
+                                showMessage("", imageHolder, false)
                             }
                         } else {
                             imageHolder.setImageResource(R.drawable.connproplems)
-                            showMessage(getString(R.string.connection_problems), imageHolder)
+                            showMessage(getString(R.string.connection_problems), imageHolder, true)
                         }
 
                     override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
                         imageHolder.setImageResource(R.drawable.connproplems)
-                        showMessage(getString(R.string.connection_problems), imageHolder)
+                        showMessage(getString(R.string.connection_problems), imageHolder, true)
                     }
 
                 })
@@ -177,17 +177,14 @@ class SearchActivity : AppCompatActivity() {
         savedStr = savedInstanceState.getString(SAVED_STRING, savedStr)
     }
 
-    private fun showMessage(text: String, image: ImageView) {
-        var buttonReload = findViewById<Button>(R.id.reloadButton)
-        buttonReload.isVisible = true
-
+    private fun showMessage(text: String, image: ImageView, showButton: Boolean) {
         if (text.isNotEmpty()) {
             tracks.clear()
             holderMessage.text = text
             holderMessage.isVisible = true
             holderImage = image
             holderImage.isVisible = true
-            reloadButton.isVisible = true
+            reloadButton.isVisible = showButton
         } else {
             holderMessage.isVisible = false
             holderImage.isVisible = false
@@ -195,7 +192,7 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-   private companion object {
+    private companion object {
         const val SAVED_STRING = "SAVED_STRING"
         const val SAVED_STR = ""
     }

@@ -1,5 +1,6 @@
 package com.example.playlistmaker
 
+
 import android.content.Context
 import android.util.TypedValue
 import android.view.View
@@ -10,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import java.text.SimpleDateFormat
 import java.util.Locale
+
 
 class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val trackName = itemView.findViewById<TextView>(R.id.trackName)

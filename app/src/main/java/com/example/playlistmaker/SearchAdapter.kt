@@ -20,5 +20,6 @@ class SearchAdapter(private val data: ArrayList<Track>, val clickTrackListener: 
             clickTrackListener.onTrackClick(data[position])
         }
     }
+
     override fun getItemCount() = data.size
 }
