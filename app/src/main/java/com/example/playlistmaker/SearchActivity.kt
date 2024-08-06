@@ -67,7 +67,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         inputEditText.setOnFocusChangeListener { view, hasFocus ->
-             searchedHistory.isVisible = if (hasFocus && inputEditText.text.isEmpty() && !historyOfSearch.readTrackList(sharedPreferences).isEmpty()) true else false
+            searchedHistory.isVisible = if (hasFocus && inputEditText.text.isEmpty() && !historyOfSearch.readTrackList(sharedPreferences).isEmpty()) true else false
             inputEditText.isCursorVisible = true
         }
 
@@ -92,6 +92,7 @@ class SearchActivity : AppCompatActivity() {
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearIcon.isVisible = clearButtonVisibility(s)
+                searchedHistory.isVisible = false
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
                     showMessage("", imageHolder,false)}
@@ -101,9 +102,12 @@ class SearchActivity : AppCompatActivity() {
             }
             override fun afterTextChanged(s: Editable?) {
                 savedStr = inputEditText.text.toString()
+                if (inputEditText.text.isNotEmpty())
+                    searchedHistory.isVisible = false
             }
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)
+
 
         fun findTracks() {
             placeHolderMessage.isVisible = false
@@ -155,8 +159,8 @@ class SearchActivity : AppCompatActivity() {
                 if (inputEditText.text.isNotEmpty()) {
                     findTracks()
                     placeHolderMessage.isVisible = true
-                    true
                 }
+                true
             }
             false
         }

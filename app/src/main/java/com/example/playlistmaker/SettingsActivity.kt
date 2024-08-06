@@ -52,15 +52,6 @@ class SettingsActivity : AppCompatActivity() {
         themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
             (applicationContext as App).switchTheme(checked)
             (applicationContext as App).setThemeSwitch(checked)
-
-        }
-
-        val themeSwitcher = findViewById<SwitchMaterial>(R.id.themeSwitcher)
-        themeSwitcher.isChecked = getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE).getBoolean(THEME_KEY, false)
-
-        themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
-            (applicationContext as App).switchTheme(checked)
-            (applicationContext as App).setThemeSwitch(checked)
         }
 
     }
