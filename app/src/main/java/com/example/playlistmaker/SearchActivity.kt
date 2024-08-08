@@ -12,7 +12,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,6 +19,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+@Suppress("UNUSED_EXPRESSION")
 class SearchActivity : AppCompatActivity() {
 
     private var savedStr: String = SAVED_STR
@@ -54,21 +54,25 @@ class SearchActivity : AppCompatActivity() {
         reloadButton = findViewById<Button>(R.id.reloadButton)
         inputEditText.requestFocus()
         inputEditText.setRawInputType(InputType.TYPE_CLASS_TEXT)
-        inputEditText.isCursorVisible = true
         searchedHistoryTracks.adapter = adapter
+        inputEditText.isCursorVisible = false
 
         if (historyOfSearch.readTrackList(sharedPreferences).size > 0) {
             searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
             searchedHistory.isVisible = true
+            //inputEditText.isCursorVisible = true
         }
 
         imageViewSearch.setOnClickListener {
             finish()
         }
 
+        inputEditText.setOnClickListener {
+             inputEditText.isCursorVisible = true
+        }
+
         inputEditText.setOnFocusChangeListener { view, hasFocus ->
             searchedHistory.isVisible = if (hasFocus && inputEditText.text.isEmpty() && !historyOfSearch.readTrackList(sharedPreferences).isEmpty()) true else false
-            inputEditText.isCursorVisible = true
         }
 
         clearIcon.setOnClickListener {
@@ -84,12 +88,13 @@ class SearchActivity : AppCompatActivity() {
             historyOfSearch.clearAllTracks(sharedPreferences)
             searchedHistory.isVisible = false
             searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences) ) {}
-
-         }
+        }
 
         val simpleTextWatcher = object : TextWatcher {
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearIcon.isVisible = clearButtonVisibility(s)
                 searchedHistory.isVisible = false
@@ -100,14 +105,15 @@ class SearchActivity : AppCompatActivity() {
                 searchedHistory.isVisible = if (historyOfSearch.readTrackList(sharedPreferences).isEmpty()) false else true
 
             }
+
             override fun afterTextChanged(s: Editable?) {
                 savedStr = inputEditText.text.toString()
-                if (inputEditText.text.isNotEmpty())
+                if (inputEditText.text.isNotEmpty()) {
                     searchedHistory.isVisible = false
+                }
             }
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)
-
 
         fun findTracks() {
             placeHolderMessage.isVisible = false
@@ -155,7 +161,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
+           if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (inputEditText.text.isNotEmpty()) {
                     findTracks()
                     placeHolderMessage.isVisible = true

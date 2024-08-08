@@ -13,5 +13,15 @@
     <style name="editTextStyle">
         <item name="android:textColorHint">@color/black_text</item>
         <item name="android:textColor">@color/black_text</item>
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
     </style>
+
+    <style name="Track_Name_Style">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Track_Another_Info_Style">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>
