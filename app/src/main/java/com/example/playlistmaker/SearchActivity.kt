@@ -1,6 +1,7 @@
 package com.example.playlistmaker
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
@@ -33,7 +34,10 @@ class SearchActivity : AppCompatActivity() {
     private val historyOfSearch = SearchHistory()
     private lateinit var sharedPreferences: SharedPreferences
     private val adapter = SearchAdapter(tracks)
-        { historyOfSearch.setTrackList(sharedPreferences, it)  }
+        { historyOfSearch.setTrackList(sharedPreferences, it)
+            val displayIntent = Intent(this, AudioPleerActivity::class.java)
+            startActivity(displayIntent)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -58,9 +62,12 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.isCursorVisible = false
 
         if (historyOfSearch.readTrackList(sharedPreferences).size > 0) {
-            searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
+            searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences))
+            {
+                val displayIntent = Intent(this, AudioPleerActivity::class.java)
+                startActivity(displayIntent)
+            }
             searchedHistory.isVisible = true
-            //inputEditText.isCursorVisible = true
         }
 
         imageViewSearch.setOnClickListener {
@@ -103,7 +110,6 @@ class SearchActivity : AppCompatActivity() {
                     showMessage("", imageHolder,false)}
                 searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
                 searchedHistory.isVisible = if (historyOfSearch.readTrackList(sharedPreferences).isEmpty()) false else true
-
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -113,6 +119,7 @@ class SearchActivity : AppCompatActivity() {
                 }
             }
         }
+
         inputEditText.addTextChangedListener(simpleTextWatcher)
 
         fun findTracks() {
