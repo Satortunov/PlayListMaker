@@ -15,4 +15,9 @@
     <string name="reload">Reload</string>
     <string name="clear_history">Clear history</string>
     <string name="lookingfor">You were looking for</string>
+    <string name="track_duration">Track duration</string>
+    <string name="album_name">Album name</string>
+    <string name="album_genre">Genre</string>
+    <string name="album_country">Country</string>
+    <string name="album_year">Year</string>
 </resources>
