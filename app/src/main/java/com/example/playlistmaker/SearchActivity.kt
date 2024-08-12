@@ -35,7 +35,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private val adapter = SearchAdapter(tracks)
         { historyOfSearch.setTrackList(sharedPreferences, it)
-            val displayIntent = Intent(this, AudioPleerActivity::class.java)
+            val displayIntent = Intent(this, AudioPlayerActivity::class.java)
             startActivity(displayIntent)
         }
 
@@ -64,7 +64,7 @@ class SearchActivity : AppCompatActivity() {
         if (historyOfSearch.readTrackList(sharedPreferences).size > 0) {
             searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences))
             {
-                val displayIntent = Intent(this, AudioPleerActivity::class.java)
+                val displayIntent = Intent(this, AudioPlayerActivity::class.java)
                 startActivity(displayIntent)
             }
             searchedHistory.isVisible = true

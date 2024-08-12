@@ -23,7 +23,7 @@
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".AudioPleerActivity"
+            android:name=".AudioPlayerActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

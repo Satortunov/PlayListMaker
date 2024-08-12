@@ -3,6 +3,7 @@
     <dimen name="size_sp_13">13sp</dimen>
     <dimen name="size_sp_16">16sp</dimen>
     <dimen name="size_sp_26">26sp</dimen>
+    <dimen name="size_sp_312">312sp</dimen>
 
     <dimen name="size_dp_0">1dp</dimen>
     <dimen name="size_dp_1">1dp</dimen>

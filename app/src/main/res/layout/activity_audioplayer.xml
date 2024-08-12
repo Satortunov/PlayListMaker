@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/APStyle">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftBorder"
@@ -19,8 +20,8 @@
         app:layout_constraintGuide_end="@dimen/size_dp_16" />
 
     <ImageView
-        android:id="@+id/audioPleerBack"
-        style="@style/ImageViewStyle"
+        android:id="@+id/audioPlayerBack"
+        style="@style/APImageViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_dp_16"
@@ -31,19 +32,19 @@
 
     <ImageView
         android:id="@+id/albumCover"
-        style="@style/Cover_Style"
+        style="@style/APCoverStyle"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/size_dp_16"
         android:layout_marginTop="@dimen/size_dp_42"
         android:layout_marginEnd="@dimen/size_dp_16"
         android:scaleType="centerCrop"
+        app:srcCompat="@drawable/placeholder"
         app:layout_constraintBottom_toTopOf="@id/albumTitle"
         app:layout_constraintDimensionRatio="h,1:1"
         app:layout_constraintEnd_toStartOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
-        app:layout_constraintTop_toBottomOf="@id/audioPleerBack"
-        app:srcCompat="@drawable/placeholder" />
+        app:layout_constraintTop_toBottomOf="@id/audioPlayerBack"/>
 
     <TextView
         android:id="@+id/albumTitle"
@@ -72,7 +73,6 @@
         android:layout_marginStart="@dimen/size_dp_24"
         android:background="@null"
         android:src="@drawable/add_icon"
-        android:text="View13"
         app:layout_constraintBottom_toBottomOf="@+id/playButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/playButton" />
@@ -91,6 +91,7 @@
 
     <TextView
         android:id="@+id/soundTime"
+        style="@style/APSoundTimeStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_dp_12"
@@ -109,7 +110,7 @@
         android:src="@drawable/add_favourites_icon"
         app:layout_constraintBottom_toBottomOf="@+id/addButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/addButton" />
+        app:layout_constraintTop_toTopOf="@id/addButton"/>
 
     <TextView
         android:id="@+id/trackDuration"
