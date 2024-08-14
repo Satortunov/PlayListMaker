@@ -40,14 +40,14 @@
         android:layout_marginEnd="@dimen/size_dp_16"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/placeholder"
-        app:layout_constraintBottom_toTopOf="@id/albumTitle"
+        app:layout_constraintBottom_toTopOf="@id/trackName"
         app:layout_constraintDimensionRatio="h,1:1"
         app:layout_constraintEnd_toStartOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintTop_toBottomOf="@id/audioPlayerBack"/>
 
     <TextView
-        android:id="@+id/albumTitle"
+        android:id="@+id/trackName"
         style="@style/APTrackNameStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -57,14 +57,14 @@
         app:layout_constraintTop_toBottomOf="@id/albumCover" />
 
     <TextView
-        android:id="@+id/musicianName"
+        android:id="@+id/artistName"
         style="@style/APMusicianNameStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_dp_12"
         android:text="@string/musician_name"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
-        app:layout_constraintTop_toBottomOf="@id/albumTitle" />
+        app:layout_constraintTop_toBottomOf="@id/trackName" />
 
     <ImageButton
         android:id="@+id/addButton"
@@ -87,7 +87,7 @@
         app:layout_constraintBottom_toTopOf="@id/soundTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/musicianName" />
+        app:layout_constraintTop_toBottomOf="@+id/artistName" />
 
     <TextView
         android:id="@+id/soundTime"
