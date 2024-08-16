@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/albumCover"
+        android:id="@+id/artworkUrl100"
         style="@style/APCoverStyle"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -54,7 +54,7 @@
         android:layout_marginTop="@dimen/size_dp_24"
         android:text="@string/track_name"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
-        app:layout_constraintTop_toBottomOf="@id/albumCover" />
+        app:layout_constraintTop_toBottomOf="@id/artworkUrl100" />
 
     <TextView
         android:id="@+id/artistName"
@@ -182,7 +182,7 @@
 
 
     <TextView
-        android:id="@+id/trackDurationTime"
+        android:id="@+id/trackTimeMillis"
         style="@style/APInformationStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
         app:layout_constraintStart_toEndOf="@id/textsBarrier" />
 
     <TextView
-        android:id="@+id/album"
+        android:id="@+id/collectionName"
         style="@style/APInformationStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -204,7 +204,7 @@
         app:layout_constraintStart_toEndOf="@id/textsBarrier" />
 
     <TextView
-        android:id="@+id/year"
+        android:id="@+id/releaseDate"
         style="@style/APInformationStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -215,7 +215,7 @@
         app:layout_constraintStart_toEndOf="@id/textsBarrier" />
 
     <TextView
-        android:id="@+id/genre"
+        android:id="@+id/primaryGenreName"
         style="@style/APInformationStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

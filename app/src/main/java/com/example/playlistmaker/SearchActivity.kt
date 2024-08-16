@@ -36,8 +36,10 @@ class SearchActivity : AppCompatActivity() {
     private val adapter = SearchAdapter(tracks)
     {
       historyOfSearch.setTrackList(sharedPreferences, it)
-      val displayIntent = Intent(this, AudioPlayerActivity::class.java)
-      startActivity(displayIntent)
+        val displayIntent = Intent(this, AudioPlayerActivity::class.java)
+        startActivity(displayIntent)
+        historyOfSearch.readTrackList(sharedPreferences)
+        historyOfSearch.setTrackList(sharedPreferences, it)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +70,8 @@ class SearchActivity : AppCompatActivity() {
                 historyOfSearch.setTrackList(sharedPreferences, it)
                 val displayIntent = Intent(this, AudioPlayerActivity::class.java)
                 startActivity(displayIntent)
+                historyOfSearch.readTrackList(sharedPreferences)
+                historyOfSearch.setTrackList(sharedPreferences, it)
             }
             searchedHistory.isVisible = true
         }
