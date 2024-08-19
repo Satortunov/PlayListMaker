@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.toDrawable
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import java.text.SimpleDateFormat
 import java.util.Locale
-import com.example.utils.loadImageFromInternet
+import com.example.utils.*
 
 
 class AudioPlayerActivity : AppCompatActivity() {
@@ -40,7 +41,12 @@ class AudioPlayerActivity : AppCompatActivity() {
         else trackTimeMillis.text = "Без времени"
 
         val artworkUrl100 = findViewById<ImageView>(R.id.artworkUrl100)
-        loadImageFromInternet(artworkUrl100, track.artworkUrl100, R.drawable.placeholder.toDrawable(), R.dimen.size_dp_2, artworkUrl100)
+        Glide.with(artworkUrl100)
+            .load(track.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
+            .placeholder(R.drawable.placeholder)
+            .centerCrop()
+            .transform(RoundedCorners(artworkUrl100.context.dpToPx(artworkUrl100.resources.getDimensionPixelSize(R.dimen.size_dp_2)).toInt()))
+            .into(artworkUrl100)
 
         val collectionName = findViewById<TextView>(R.id.collectionName)
         if (track.collectionName != null) collectionName.text = track.collectionName
