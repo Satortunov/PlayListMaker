@@ -20,22 +20,12 @@ class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val trackTime = itemView.findViewById<TextView>(R.id.trackTime)
     private val artworkUrl = itemView.findViewById<ImageView>(R.id.artworkUrl)
 
-    fun Context.loadImageFromInternet(context: Context, from: String, placeHolder: Drawable, radius: Int, intoImageView: ImageView)
-    {
-        Glide.with(context)
-            .load(from)
-            .placeholder(placeHolder)
-            .centerCrop()
-            .transform(RoundedCorners(dpToPx(resources.getDimensionPixelSize(radius)).toInt()))
-            .into(intoImageView)
-
-    }
 
     fun bind(track: Track) {
         trackName.text = track.trackName
         artistName.text = track.artistName
         trackTime.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis)
-
+        artworkUrl.context.applicationContext.loadImageFromInternet(itemView, track.artworkUrl100, R.drawable.placeholder.toDrawable(), R.dimen.size_dp_2, artworkUrl)
          /*Glide.with(itemView)
             .load(item.artworkUrl100)
             .placeholder(R.drawable.placeholder)

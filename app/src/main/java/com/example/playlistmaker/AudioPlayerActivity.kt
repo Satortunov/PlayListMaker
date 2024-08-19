@@ -40,7 +40,7 @@ class AudioPlayerActivity : AppCompatActivity() {
         else trackTimeMillis.text = "Без времени"
 
         val artworkUrl100 = findViewById<ImageView>(R.id.artworkUrl100)
-        loadImageFromInternet(applicationContext, track.artworkUrl100, R.drawable.placeholder.toDrawable(), R.dimen.size_dp_2, artworkUrl100)
+        loadImageFromInternet(artworkUrl100, track.artworkUrl100, R.drawable.placeholder.toDrawable(), R.dimen.size_dp_2, artworkUrl100)
 
         val collectionName = findViewById<TextView>(R.id.collectionName)
         if (track.collectionName != null) collectionName.text = track.collectionName
