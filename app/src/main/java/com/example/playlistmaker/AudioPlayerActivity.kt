@@ -17,6 +17,7 @@ class AudioPlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_audioplayer)
 
+
         val searchedHistory = SearchHistory()
         var track = searchedHistory.readTrackList(getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE)).get(0)
 
@@ -29,16 +30,16 @@ class AudioPlayerActivity : AppCompatActivity() {
 
         val trackName = findViewById<TextView>(R.id.trackName)
         if (track.trackName != null) trackName.text = track.trackName
-        else trackName.text = "Без названия"
+        else trackName.text = R.string.no_name.toString()
 
         val artistName = findViewById<TextView>(R.id.artistName)
         if (track.artistName != null) artistName.text = track.artistName
-        else artistName.text = "Неизвестный исполнитель"
+        else artistName.text = R.string.unknown_musician.toString()
 
 
         val trackTimeMillis = findViewById<TextView>(R.id.trackTimeMillis)
         if (track.trackTimeMillis != null) trackTimeMillis.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis)
-        else trackTimeMillis.text = "Без времени"
+        else trackTimeMillis.text = R.string.no_data.toString()
 
         val artworkUrl100 = findViewById<ImageView>(R.id.artworkUrl100)
         Glide.with(artworkUrl100)
@@ -50,19 +51,19 @@ class AudioPlayerActivity : AppCompatActivity() {
 
         val collectionName = findViewById<TextView>(R.id.collectionName)
         if (track.collectionName != null) collectionName.text = track.collectionName
-        else collectionName.text = "Нет названия"
+        else collectionName.text = R.string.no_data.toString()
 
         val releaseDate = findViewById<TextView>(R.id.releaseDate)
         if (track.releaseDate != null) releaseDate.text = track.releaseDate.substring(0, 4)
-        else releaseDate.text = "Неизвестный год"
+        else releaseDate.text = R.string.no_data.toString()
 
         val primaryGenreName = findViewById<TextView>(R.id.primaryGenreName)
         if (track.primaryGenreName != null) primaryGenreName.text = track.primaryGenreName
-        else primaryGenreName.text = "Неизвестный жанр"
+        else primaryGenreName.text = R.string.no_data.toString()
 
         val country = findViewById<TextView>(R.id.country)
         if (track.country != null) country.text = track.country
-        else country.text = "Неизвестная страна"
+        else country.text = R.string.no_data.toString()
 
         //вывод данных трека
 

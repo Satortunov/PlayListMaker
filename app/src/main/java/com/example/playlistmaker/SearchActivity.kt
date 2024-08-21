@@ -90,11 +90,14 @@ class SearchActivity : AppCompatActivity() {
 
         clearIcon.setOnClickListener {
             inputEditText.setText("")
+            placeHolderMessage.isVisible = false
             val view: View? = this.currentFocus
             if (view != null) {
                 val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0)
             }
+            //searchedHistory.isVisible = historyOfSearch.readTrackList(sharedPreferences).isNotEmpty()
+
         }
 
         clearHistoryButton.setOnClickListener {
@@ -115,14 +118,14 @@ class SearchActivity : AppCompatActivity() {
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
                     showMessage("", imageHolder,false)}
                 searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
-                searchedHistory.isVisible = if (historyOfSearch.readTrackList(sharedPreferences).isEmpty()) false else true
+               // placeHolderMessage.isVisible = if (inputEditText.text.isEmpty()) false else true
+                    //searchedHistory.isVisible = if (historyOfSearch.readTrackList(sharedPreferences).isEmpty()) false else true
             }
 
             override fun afterTextChanged(s: Editable?) {
                 savedStr = inputEditText.text.toString()
-                if (inputEditText.text.isNotEmpty()) {
-                    searchedHistory.isVisible = false
-                }
+                //searchedHistory.isVisible = if(inputEditText.text.isNotEmpty()) false else true
+
             }
         }
 

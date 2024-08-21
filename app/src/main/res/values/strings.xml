@@ -28,5 +28,8 @@
     <string name="album_year">Год</string>
     <string name="album_genre">Жанр</string>
     <string name="album_country">Страна</string>
-    <string name="track_title" translatable="false">None</string>
+    <string name="track_title">Неизвестно</string>
+    <string name="no_name">Без назваия</string>
+    <string name="unknown_musician">"Неизвестный исполнитель"</string>
+    <string name="no_data">"Нет данных"</string>
 </resources>

@@ -20,4 +20,8 @@
     <string name="album_genre">Genre</string>
     <string name="album_country">Country</string>
     <string name="album_year">Year</string>
+    <string name="track_title">Unknown</string>
+    <string name="no_name">No name</string>
+    <string name="unknown_musician">Unknown musician</string>
+    <string name="no_data">No data</string>
 </resources>
