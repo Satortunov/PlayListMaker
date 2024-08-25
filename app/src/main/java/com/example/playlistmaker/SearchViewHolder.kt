@@ -15,11 +15,13 @@ class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val artistName = itemView.findViewById<TextView>(R.id.artistName)
     private val trackTime = itemView.findViewById<TextView>(R.id.trackTime)
     private val artworkUrl = itemView.findViewById<ImageView>(R.id.artworkUrl)
+    private val trackId = itemView.findViewById<TextView>(R.id.trackId)
 
     fun bind(track: Track) {
         trackName.text = track.trackName
         artistName.text = track.artistName
         trackTime.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis)
+        trackId.text = track.trackId.toString()
 
         Glide.with(itemView)
             .load(track.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))

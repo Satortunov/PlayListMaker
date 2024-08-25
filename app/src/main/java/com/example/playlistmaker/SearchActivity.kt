@@ -11,6 +11,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -30,16 +31,31 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var holderMessage: TextView
     private lateinit var holderImage: ImageView
     private lateinit var reloadButton: Button
-    private val tracks = ArrayList<Track>()
+    private val tracks = ArrayList<Track?>()
     private val historyOfSearch = SearchHistory()
     private lateinit var sharedPreferences: SharedPreferences
+    var track: Track? = null
     private val adapter = SearchAdapter(tracks)
-    {
+        {
       historyOfSearch.setTrackList(sharedPreferences, it)
+        val trackId = findViewById<TextView>(R.id.trackId)?.text
+        /*val trNa = findViewById<TextView>(R.id.artistName)
+            val toast = Toast.makeText(this, trNa.text, LENGTH_SHORT) // in Activity
+            toast.show()*/
+        if (!trackId.isNullOrEmpty()) {
+            track = tracks.find { it?.trackId == trackId.toString().toInt() }
+            if (track != null) {
+                historyOfSearch.setTrackList(sharedPreferences, track)
+            } else {
+                track = tracks.find { it?.trackId == trackId.toString().toInt() }
+            }
+        }
         val displayIntent = Intent(this, AudioPlayerActivity::class.java)
+
+        intent.putExtra("track", track)
         startActivity(displayIntent)
-        historyOfSearch.readTrackList(sharedPreferences)
-        historyOfSearch.setTrackList(sharedPreferences, it)
+       // historyOfSearch.readTrackList(sharedPreferences)
+        //historyOfSearch.setTrackList(sharedPreferences, it)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,13 +81,25 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.isCursorVisible = false
 
         if (historyOfSearch.readTrackList(sharedPreferences).size > 0) {
-            searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences))
+            searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(this.sharedPreferences))
             {
                 historyOfSearch.setTrackList(sharedPreferences, it)
-                val displayIntent = Intent(this, AudioPlayerActivity::class.java)
-                startActivity(displayIntent)
-                historyOfSearch.readTrackList(sharedPreferences)
-                historyOfSearch.setTrackList(sharedPreferences, it)
+                val trackId = findViewById<TextView>(R.id.trackId)?.text
+                if (!trackId.isNullOrEmpty()) {
+                    track = tracks.find { it?.trackId == trackId.toString().toInt() }
+                    if (track != null) {
+                        historyOfSearch.setTrackList(sharedPreferences, track)
+                    } else {
+                        track = tracks.find { it?.trackId == trackId.toString().toInt() }
+                    }
+                }
+
+               // intent.putExtra("track", track)
+
+                //val displayIntent = Intent(this, AudioPlayerActivity::class.java)
+                //startActivity(displayIntent)
+                //historyOfSearch.readTrackList(sharedPreferences)
+                //historyOfSearch.setTrackList(sharedPreferences, it)
             }
             searchedHistory.isVisible = true
         }
@@ -96,7 +124,7 @@ class SearchActivity : AppCompatActivity() {
                 val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0)
             }
-            //searchedHistory.isVisible = historyOfSearch.readTrackList(sharedPreferences).isNotEmpty()
+            searchedHistory.isVisible = historyOfSearch.readTrackList(sharedPreferences).isNotEmpty()
 
         }
 
@@ -118,13 +146,13 @@ class SearchActivity : AppCompatActivity() {
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
                     showMessage("", imageHolder,false)}
                 searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
-               // placeHolderMessage.isVisible = if (inputEditText.text.isEmpty()) false else true
-                    //searchedHistory.isVisible = if (historyOfSearch.readTrackList(sharedPreferences).isEmpty()) false else true
+                placeHolderMessage.isVisible = if (inputEditText.text.isEmpty()) false else true
+                searchedHistory.isVisible = if (historyOfSearch.readTrackList(sharedPreferences).isEmpty()) false else true
             }
 
             override fun afterTextChanged(s: Editable?) {
                 savedStr = inputEditText.text.toString()
-                //searchedHistory.isVisible = if(inputEditText.text.isNotEmpty()) false else true
+                searchedHistory.isVisible = if(inputEditText.text.isNotEmpty()) false else true
 
             }
         }
@@ -145,7 +173,9 @@ class SearchActivity : AppCompatActivity() {
                             if (response.body()?.results?.isNotEmpty() == true) {
                                 tracks.clear()
                                 tracks.addAll(response.body()?.results!!)
-                                adapter.notifyDataSetChanged()
+                                adapter.notifyDataSetChanged() // посмотреть другие методы обновления
+                                //adapter.notifyItemInserted(3)
+
                             }
                             if (tracks.isEmpty()) {
                                 imageHolder.setImageResource(R.drawable.nothingfind)

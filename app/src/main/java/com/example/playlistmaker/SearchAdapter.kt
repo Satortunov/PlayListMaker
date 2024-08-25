@@ -4,7 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class SearchAdapter(private val data: ArrayList<Track>, val clickTrackListener: PressTrackListener) :
+class SearchAdapter(private val tracks: ArrayList<Track?>, val clickTrackListener: PressTrackListener) :
+
     RecyclerView.Adapter<SearchViewHolder>()  {
 
     fun interface PressTrackListener {
@@ -15,11 +16,11 @@ class SearchAdapter(private val data: ArrayList<Track>, val clickTrackListener: 
         return SearchViewHolder(view)
     }
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
-        holder.bind(data[position])
+        tracks[position]?.let { holder.bind(it) }
         holder.itemView.setOnClickListener {
-            clickTrackListener.onTrackClick(data[position])
+            tracks[position]?.let { it -> clickTrackListener.onTrackClick(it) }
         }
     }
 
-    override fun getItemCount() = data.size
+    override fun getItemCount() = tracks.size
 }
