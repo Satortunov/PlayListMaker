@@ -27,11 +27,10 @@ class AudioPlayerActivity : AppCompatActivity() {
 
         val searchedHistory = SearchHistory()
         var track = intent.getSerializableExtra("track") as? Track
-        val toast = Toast.makeText(this, track?.trackName.toString(), LENGTH_SHORT) // in Activity
-        toast.show()
+
 
         //вывод данных трека
-/*
+
         val trackName = findViewById<TextView>(R.id.trackName)
         if (track?.trackName != null) trackName.text = track.trackName
         else trackName.text = R.string.no_name.toString()
@@ -68,7 +67,7 @@ class AudioPlayerActivity : AppCompatActivity() {
         val country = findViewById<TextView>(R.id.country)
         if (track?.country != null) country.text = track.country
         else country.text = R.string.no_data.toString()
-*/
+
         //вывод данных трека
 
         //searchedHistory.setTrackList(getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE), track)
