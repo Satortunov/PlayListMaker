@@ -12,7 +12,7 @@ const val MAX_TRACKS = 10
 class SearchHistory {
 
     fun readTrackList(sharedPreferences: SharedPreferences):  ArrayList<Track?> {
-        val json = sharedPreferences.getString(TRACKS_LIST_KEY, null) ?: return ArrayList()
+        val json = sharedPreferences.getString(TRACKS_LIST_KEY, null) ?: return ArrayList<Track?>()
         val tracksList: Type = object : TypeToken<ArrayList<Track>?>() {}.type
         return Gson().fromJson(json, tracksList)
     }

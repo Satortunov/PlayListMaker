@@ -14,6 +14,7 @@ import com.example.utils.*
 
 
 
+@Suppress("DEPRECATION")
 class AudioPlayerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

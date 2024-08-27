@@ -9,7 +9,7 @@ class SearchAdapter(private val tracks: ArrayList<Track?>, val clickTrackListene
     RecyclerView.Adapter<SearchViewHolder>()  {
 
     fun interface PressTrackListener {
-          fun onTrackClick(track: Track)
+          fun onTrackClick(track: Track?)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.track_view, parent, false)

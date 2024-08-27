@@ -31,7 +31,7 @@
         android:layout_margin="16dp">
 
         <EditText
-            android:id="@+id/enterEditText"
+            android:id="@+id/inputEditText"
             style="@style/editTextStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_dp_36"
