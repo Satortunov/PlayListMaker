@@ -52,7 +52,7 @@ class SearchActivity : AppCompatActivity() {
         }
         val displayIntent = Intent(this, AudioPlayerActivity::class.java)
 
-        intent.putExtra("track", track)
+        displayIntent.putExtra("track", track)
         startActivity(displayIntent)
        // historyOfSearch.readTrackList(sharedPreferences)
         //historyOfSearch.setTrackList(sharedPreferences, it)
