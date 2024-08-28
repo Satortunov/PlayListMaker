@@ -16,10 +16,8 @@ class SearchAdapter(private val tracks: ArrayList<Track?>, val clickTrackListene
         return SearchViewHolder(view)
     }
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
-        tracks[position]?.let { holder.bind(it) }
-        holder.itemView.setOnClickListener {
-            tracks[position]?.let { it -> clickTrackListener.onTrackClick(it) }
-        }
+        holder.bind(tracks.get(position))
+        holder.itemView.setOnClickListener { it -> clickTrackListener.onTrackClick(tracks[position]) }
     }
 
     override fun getItemCount() = tracks.size

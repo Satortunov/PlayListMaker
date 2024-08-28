@@ -17,14 +17,18 @@ class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val artworkUrl = itemView.findViewById<ImageView>(R.id.artworkUrl)
     private val trackId = itemView.findViewById<TextView>(R.id.trackId)
 
-    fun bind(track: Track) {
-        trackName.text = track.trackName
-        artistName.text = track.artistName
-        trackTime.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis)
-        trackId.text = track.trackId.toString()
+    fun bind(track: Track?) {
+        if (track?.trackName != null) trackName.text = track.trackName
+        else trackName.text = R.string.no_name.toString()
+
+        if (track?.artistName != null) artistName.text = track.artistName
+        else artistName.text = R.string.unknown_musician.toString()
+
+        if (track?.trackTimeMillis != null) trackTime.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis)
+        else trackTime.text = R.string.no_data.toString()
 
         Glide.with(itemView)
-            .load(track.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
+            .load(track?.artworkUrl100?.replaceAfterLast('/', "512x512bb.jpg"))
             .placeholder(R.drawable.placeholder)
             .centerCrop()
             .transform(RoundedCorners(itemView.context.dpToPx(itemView.resources.getDimensionPixelSize(R.dimen.size_dp_2)).toInt()))
