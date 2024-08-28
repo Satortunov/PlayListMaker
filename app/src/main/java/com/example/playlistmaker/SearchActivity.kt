@@ -11,7 +11,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -34,28 +33,13 @@ class SearchActivity : AppCompatActivity() {
     private val tracks = ArrayList<Track?>()
     private val historyOfSearch = SearchHistory()
     private lateinit var sharedPreferences: SharedPreferences
-    var track: Track? = null
     private val adapter = SearchAdapter(tracks)
-        {
-      historyOfSearch.setTrackList(sharedPreferences, it)
-        val trackId = findViewById<TextView>(R.id.trackId)?.text
-        /*val trNa = findViewById<TextView>(R.id.artistName)
-            val toast = Toast.makeText(this, trNa.text, LENGTH_SHORT) // in Activity
-            toast.show()*/
-        if (!trackId.isNullOrEmpty()) {
-            track = tracks.find { it?.trackId == trackId.toString().toInt() }
-            if (track != null) {
-                historyOfSearch.setTrackList(sharedPreferences, track)
-            } else {
-                track = tracks.find { it?.trackId == trackId.toString().toInt() }
-            }
-        }
+    {
+        historyOfSearch.setTrackList(sharedPreferences, it)
         val displayIntent = Intent(this, AudioPlayerActivity::class.java)
-
-        displayIntent.putExtra("track", track)
         startActivity(displayIntent)
-       // historyOfSearch.readTrackList(sharedPreferences)
-        //historyOfSearch.setTrackList(sharedPreferences, it)
+        historyOfSearch.readTrackList(sharedPreferences)
+        historyOfSearch.setTrackList(sharedPreferences, it)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,26 +65,15 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.isCursorVisible = false
 
         if (historyOfSearch.readTrackList(sharedPreferences).size > 0) {
-            searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(this.sharedPreferences))
+            searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences))
             {
                 historyOfSearch.setTrackList(sharedPreferences, it)
-                val trackId = findViewById<TextView>(R.id.trackId)?.text
-                if (!trackId.isNullOrEmpty()) {
-                    track = tracks.find { it?.trackId == trackId.toString().toInt() }
-                    if (track != null) {
-                        historyOfSearch.setTrackList(sharedPreferences, track)
-                    } else {
-                        track = tracks.find { it?.trackId == trackId.toString().toInt() }
-                    }
-                }
-
-               // intent.putExtra("track", track)
-
-                //val displayIntent = Intent(this, AudioPlayerActivity::class.java)
-                //startActivity(displayIntent)
-                //historyOfSearch.readTrackList(sharedPreferences)
-                //historyOfSearch.setTrackList(sharedPreferences, it)
+                val displayIntent = Intent(this, AudioPlayerActivity::class.java)
+                startActivity(displayIntent)
+                historyOfSearch.readTrackList(sharedPreferences)
+                historyOfSearch.setTrackList(sharedPreferences, it)
             }
+            placeHolderMessage.isVisible = false
             searchHistory.isVisible = true
         }
 
@@ -109,7 +82,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         inputEditText.setOnClickListener {
-             inputEditText.isCursorVisible = true
+            inputEditText.isCursorVisible = true
         }
 
         inputEditText.setOnFocusChangeListener { view, hasFocus ->
@@ -118,14 +91,13 @@ class SearchActivity : AppCompatActivity() {
 
         clearIcon.setOnClickListener {
             inputEditText.setText("")
-            placeHolderMessage.isVisible = false
             val view: View? = this.currentFocus
             if (view != null) {
                 val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0)
             }
-            searchHistory.isVisible = historyOfSearch.readTrackList(sharedPreferences).isNotEmpty()
-
+            placeHolderMessage.isVisible = false
+            searchHistory.isVisible = true
         }
 
         clearHistoryButton.setOnClickListener {
@@ -144,16 +116,20 @@ class SearchActivity : AppCompatActivity() {
                 searchHistory.isVisible = false
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
-                    showMessage("", imageHolder,false)}
+                    showMessage("", imageHolder,false)
+                }
                 searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences)) {}
-                placeHolderMessage.isVisible = if (inputEditText.text.isEmpty()) false else true
                 searchHistory.isVisible = if (historyOfSearch.readTrackList(sharedPreferences).isEmpty()) false else true
             }
 
             override fun afterTextChanged(s: Editable?) {
                 savedStr = inputEditText.text.toString()
-                searchHistory.isVisible = if(inputEditText.text.isNotEmpty()) false else true
-
+                if (inputEditText.text.isNotEmpty()) {
+                    searchHistory.isVisible = false
+                } else {
+                    placeHolderMessage.isVisible = false
+                    searchHistory.isVisible = true
+                }
             }
         }
 
@@ -173,9 +149,7 @@ class SearchActivity : AppCompatActivity() {
                             if (response.body()?.results?.isNotEmpty() == true) {
                                 tracks.clear()
                                 tracks.addAll(response.body()?.results!!)
-                                adapter.notifyDataSetChanged() // посмотреть другие методы обновления
-                                //adapter.notifyItemInserted(3)
-
+                                adapter.notifyDataSetChanged()
                             }
                             if (tracks.isEmpty()) {
                                 imageHolder.setImageResource(R.drawable.nothingfind)
@@ -195,6 +169,9 @@ class SearchActivity : AppCompatActivity() {
                     }
 
                 })
+            } else {
+                placeHolderMessage.isVisible = false
+                searchHistory.isVisible = true
             }
         } //findTracks
 
@@ -207,7 +184,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
-           if (actionId == EditorInfo.IME_ACTION_DONE) {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (inputEditText.text.isNotEmpty()) {
                     findTracks()
                     placeHolderMessage.isVisible = true
@@ -225,7 +202,7 @@ class SearchActivity : AppCompatActivity() {
         return if (s.isNullOrEmpty()) false else true
     }
 
-        override fun onSaveInstanceState(outState: Bundle) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(SAVED_STRING, savedStr)
     }
