@@ -15,7 +15,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -25,10 +24,8 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 @Suppress("UNUSED_EXPRESSION", "DEPRECATION")
 class SearchActivity : AppCompatActivity() {
-
     private var savedStr: String = SAVED_STR
     private val itunesAPIUrl = "https://itunes.apple.com"
     private val retrofit = Retrofit.Builder().baseUrl(itunesAPIUrl).addConverterFactory(GsonConverterFactory.create()).build()
@@ -37,27 +34,23 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var holderMessageImage: ImageView
     private lateinit var reloadButton: Button
     private var tracks = ArrayList<Track?>()
+    private var historySearchTracks = ArrayList<Track?>()
     private val historyOfSearch = SearchHistory()
     private lateinit var sharedPreferences: SharedPreferences
-    private val adapter = SearchAdapter(tracks)
-    {
-        val currentIndex = tracks.indexOf(it)
-
-        val displayIntent = Intent(this, AudioPlayerActivity::class.java)
-        intent.putExtra("track", tracks[currentIndex])
-        var track = intent.getSerializableExtra("track") as? Track
-        val toast = Toast.makeText(applicationContext, track?.artistName.toString(), Toast.LENGTH_SHORT)
-        toast.show()
-
-        //startActivity(displayIntent)
-        //historyOfSearch.readTrackList(sharedPreferences)
-        //historyOfSearch.setTrackList(sharedPreferences, track)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+        val adapter = SearchAdapter(tracks)
+        {
+            historyOfSearch.setTrackList(sharedPreferences, tracks[tracks.indexOf(it)])
+            val displayIntent = Intent(this, AudioPlayerActivity::class.java)
+            displayIntent.putExtra("savedtrack", tracks[tracks.indexOf(it)])
+            startActivity(displayIntent)
+            historyOfSearch.readTrackList(sharedPreferences)
+            historyOfSearch.setTrackList(sharedPreferences, tracks[tracks.indexOf(it)])
+        }
 
         val searchBack = findViewById<ImageView>(R.id.searchBack)
         val inputEditText = findViewById<EditText>(R.id.inputEditText)
@@ -75,15 +68,16 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.setRawInputType(InputType.TYPE_CLASS_TEXT)
         searchedHistoryTracks.adapter = adapter
         inputEditText.isCursorVisible = false
-
-        if (historyOfSearch.readTrackList(sharedPreferences).size > 0) {
-            searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences))
+        historySearchTracks = historyOfSearch.readTrackList(sharedPreferences)
+        if (historySearchTracks.size > 0) {
+            searchedHistoryTracks.adapter = SearchAdapter(historySearchTracks)
             {
-               /* historyOfSearch.setTrackList(sharedPreferences, it)
+                historyOfSearch.setTrackList(sharedPreferences, historySearchTracks[historySearchTracks.indexOf(it)])
                 val displayIntent = Intent(this, AudioPlayerActivity::class.java)
+                displayIntent.putExtra("savedtrack", historySearchTracks[historySearchTracks.indexOf(it)])
                 startActivity(displayIntent)
                 historyOfSearch.readTrackList(sharedPreferences)
-                historyOfSearch.setTrackList(sharedPreferences, it)*/
+                historyOfSearch.setTrackList(sharedPreferences, historySearchTracks[historySearchTracks.indexOf(it)])
             }
             placeHolderMessage.isVisible = false
             searchHistory.isVisible = true
@@ -109,11 +103,12 @@ class SearchActivity : AppCompatActivity() {
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0)
             }
             placeHolderMessage.isVisible = false
-            searchHistory.isVisible = true
+            searchHistory.isVisible = if (inputEditText.text.isEmpty() && !historyOfSearch.readTrackList(sharedPreferences).isEmpty()) true else false
         }
 
         clearHistoryButton.setOnClickListener {
             historyOfSearch.clearAllTracks(sharedPreferences)
+            adapter.notifyDataSetChanged()
             searchHistory.isVisible = false
             searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences) ) {}
         }
@@ -140,7 +135,7 @@ class SearchActivity : AppCompatActivity() {
                     searchHistory.isVisible = false
                 } else {
                     placeHolderMessage.isVisible = false
-                    searchHistory.isVisible = true
+                    searchHistory.isVisible = if (historyOfSearch.readTrackList(sharedPreferences).isEmpty()) false else true
                 }
             }
         }
@@ -179,7 +174,6 @@ class SearchActivity : AppCompatActivity() {
                         imageHolder.setImageResource(R.drawable.connproplems)
                         showMessage(getString(R.string.connection_problems), imageHolder, true)
                     }
-
                 })
             } else {
                 placeHolderMessage.isVisible = false
@@ -189,6 +183,7 @@ class SearchActivity : AppCompatActivity() {
 
         val searchedTracksList = findViewById<RecyclerView>(R.id.searchedTracks)
         searchedTracksList.adapter = adapter
+        adapter.notifyDataSetChanged()
 
         reloadButton.setOnClickListener {
             findTracks()

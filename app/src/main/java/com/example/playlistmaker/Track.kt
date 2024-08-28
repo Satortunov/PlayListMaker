@@ -12,9 +12,5 @@ data class Track (
         val primaryGenreName: String,
         val country: String,
         val trackId: Int
-) : Serializable
-
-{
-
-}
+) : Serializable {}
 
