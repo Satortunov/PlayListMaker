@@ -27,8 +27,7 @@ class AudioPlayerActivity : AppCompatActivity() {
         }
 
         val searchedHistory = SearchHistory()
-        var track = searchedHistory.readTrackList(getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE)).get(0)
-        //var track = intent.getSerializableExtra("track") as? Track
+        var track = intent.getSerializableExtra("track") as? Track
 
 
         //вывод данных трека
@@ -72,7 +71,7 @@ class AudioPlayerActivity : AppCompatActivity() {
 
         //вывод данных трека
 
-        //searchedHistory.setTrackList(getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE), track)
+        searchedHistory.setTrackList(getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE), track)
 
     }//onCreate
 

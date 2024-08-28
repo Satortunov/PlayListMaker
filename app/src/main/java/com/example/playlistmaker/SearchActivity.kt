@@ -10,7 +10,12 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +25,8 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-@Suppress("UNUSED_EXPRESSION")
+
+@Suppress("UNUSED_EXPRESSION", "DEPRECATION")
 class SearchActivity : AppCompatActivity() {
 
     private var savedStr: String = SAVED_STR
@@ -30,16 +36,22 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var holderMessageText: TextView
     private lateinit var holderMessageImage: ImageView
     private lateinit var reloadButton: Button
-    private val tracks = ArrayList<Track?>()
+    private var tracks = ArrayList<Track?>()
     private val historyOfSearch = SearchHistory()
     private lateinit var sharedPreferences: SharedPreferences
     private val adapter = SearchAdapter(tracks)
     {
-        historyOfSearch.setTrackList(sharedPreferences, it)
+        val currentIndex = tracks.indexOf(it)
+
         val displayIntent = Intent(this, AudioPlayerActivity::class.java)
-        startActivity(displayIntent)
-        historyOfSearch.readTrackList(sharedPreferences)
-        historyOfSearch.setTrackList(sharedPreferences, it)
+        intent.putExtra("track", tracks[currentIndex])
+        var track = intent.getSerializableExtra("track") as? Track
+        val toast = Toast.makeText(applicationContext, track?.artistName.toString(), Toast.LENGTH_SHORT)
+        toast.show()
+
+        //startActivity(displayIntent)
+        //historyOfSearch.readTrackList(sharedPreferences)
+        //historyOfSearch.setTrackList(sharedPreferences, track)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,11 +79,11 @@ class SearchActivity : AppCompatActivity() {
         if (historyOfSearch.readTrackList(sharedPreferences).size > 0) {
             searchedHistoryTracks.adapter = SearchAdapter(historyOfSearch.readTrackList(sharedPreferences))
             {
-                historyOfSearch.setTrackList(sharedPreferences, it)
+               /* historyOfSearch.setTrackList(sharedPreferences, it)
                 val displayIntent = Intent(this, AudioPlayerActivity::class.java)
                 startActivity(displayIntent)
                 historyOfSearch.readTrackList(sharedPreferences)
-                historyOfSearch.setTrackList(sharedPreferences, it)
+                historyOfSearch.setTrackList(sharedPreferences, it)*/
             }
             placeHolderMessage.isVisible = false
             searchHistory.isVisible = true
