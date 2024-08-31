@@ -23,52 +23,48 @@ class AudioPlayerActivity : AppCompatActivity() {
             finish()
         }
 
-        val searchedHistory = SearchHistory()
-        var intent: Intent = getIntent()
-        var track = intent.getSerializableExtra("savedtrack") as? Track
+        val intent: Intent = getIntent()
+        var track = intent.getSerializableExtra(SAVED_TRACK) as? Track
 
         //вывод данных трека
-
         val trackName = findViewById<TextView>(R.id.trackName)
-        if (track?.trackName != null) trackName.text = track.trackName
-        else trackName.text = R.string.no_name.toString()
+        trackName.text = track?.trackName?: R.string.no_name.toString()
 
         val artistName = findViewById<TextView>(R.id.artistName)
-        if (track?.artistName != null) artistName.text = track.artistName
-        else artistName.text = R.string.unknown_musician.toString()
-
+        artistName.text = track?.artistName?: R.string.unknown_musician.toString()
 
         val trackTimeMillis = findViewById<TextView>(R.id.trackTimeMillis)
-        if (track?.trackTimeMillis != null) trackTimeMillis.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis)
-        else trackTimeMillis.text = R.string.no_data.toString()
+        trackTimeMillis.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(track?.trackTimeMillis)?: R.string.no_data.toString()
 
         val artworkUrl100 = findViewById<ImageView>(R.id.artworkUrl100)
         Glide.with(artworkUrl100)
             .load(track?.artworkUrl100?.replaceAfterLast('/', "512x512bb.jpg"))
             .placeholder(R.drawable.placeholder)
             .centerCrop()
-            .transform(RoundedCorners(artworkUrl100.context.dpToPx(artworkUrl100.resources.getDimensionPixelSize(R.dimen.size_dp_2)).toInt()))
+            .transform(
+                RoundedCorners(
+                    artworkUrl100.context.dpToPx(
+                        artworkUrl100.resources.getDimensionPixelSize(
+                            R.dimen.size_dp_2
+                        )
+                    ).toInt()
+                )
+            )
             .into(artworkUrl100)
 
         val collectionName = findViewById<TextView>(R.id.collectionName)
-        if (track?.collectionName != null) collectionName.text = track.collectionName
-        else collectionName.text = R.string.no_data.toString()
+        collectionName.text = track?.collectionName?: R.string.no_data.toString()
 
         val releaseDate = findViewById<TextView>(R.id.releaseDate)
-        if (track?.releaseDate != null) releaseDate.text = track.releaseDate.substring(0, 4)
-        else releaseDate.text = R.string.no_data.toString()
+        releaseDate.text = track?.releaseDate?.substring(0, 4)?: R.string.no_data.toString()
 
         val primaryGenreName = findViewById<TextView>(R.id.primaryGenreName)
-        if (track?.primaryGenreName != null) primaryGenreName.text = track.primaryGenreName
-        else primaryGenreName.text = R.string.no_data.toString()
+        primaryGenreName.text = track?.primaryGenreName?: R.string.no_data.toString()
 
         val country = findViewById<TextView>(R.id.country)
-        if (track?.country != null) country.text = track.country
-        else country.text = R.string.no_data.toString()
-
+        country.text = track?.country?: R.string.no_data.toString()
         //вывод данных трека
 
-        searchedHistory.setTrackList(getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE), track)
 
     }//onCreate
 
