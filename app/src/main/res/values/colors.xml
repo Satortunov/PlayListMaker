@@ -7,4 +7,5 @@
     <color name="red">#FF0000</color>
     <color name="search_background">#E6E8EB</color>
     <color name="hint_color">#AEAFB4</color>
+    <color name="gray"> #AEAFB4 </color>
   </resources>

@@ -25,6 +25,13 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/trackId"
+            android:layout_width="@dimen/size_dp_0"
+            android:layout_height="@dimen/size_dp_0"
+            android:text=""
+            android:visibility="invisible"/>
+
+        <TextView
             android:id="@+id/trackName"
             style="@style/Track_Name_Style"
             android:layout_width="wrap_content"

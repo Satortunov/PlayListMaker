@@ -16,11 +16,20 @@
     <string name="support_message">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="agreement_address" translatable="false">https://yandex.ru/legal/practicum_offer/</string>
     <string name="musician_name" translatable="false">Unamed</string>
-    <string name="track_name" translatable="false">No Raply</string>
+    <string name="track_name" translatable="false">No Reply</string>
     <string name="track_time" translatable="false">00:00</string>
     <string name="connection_problems"> Проблемы со связью \n\ \n\ Загрузка не удалась.  Проверьте \n\ подключение к интернету</string>
     <string name="nothing_find">Ничего не нашлось</string>
     <string name="reload">Обновить</string>
     <string name="clear_history">Очистить историю</string>
     <string name="lookingfor">Вы искали</string>
+    <string name="track_duration">Длительность</string>
+    <string name="album_name">Альбом</string>
+    <string name="album_year">Год</string>
+    <string name="album_genre">Жанр</string>
+    <string name="album_country">Страна</string>
+    <string name="track_title">Неизвестно</string>
+    <string name="no_name">Без назваия</string>
+    <string name="unknown_musician">"Неизвестный исполнитель"</string>
+    <string name="no_data">"Нет данных"</string>
 </resources>

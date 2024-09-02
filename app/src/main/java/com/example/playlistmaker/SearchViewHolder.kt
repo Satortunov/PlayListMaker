@@ -1,8 +1,5 @@
 package com.example.playlistmaker
 
-
-import android.content.Context
-import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import java.text.SimpleDateFormat
 import java.util.Locale
-
+import com.example.utils.*
 
 class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val trackName = itemView.findViewById<TextView>(R.id.trackName)
@@ -19,19 +16,18 @@ class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val trackTime = itemView.findViewById<TextView>(R.id.trackTime)
     private val artworkUrl = itemView.findViewById<ImageView>(R.id.artworkUrl)
 
+    fun bind(track: Track?) {
+        if (track?.trackName != null) trackName.text = track.trackName
+        else trackName.text = R.string.no_name.toString()
 
-    fun bind(item: Track) {
-        trackName.text = item.trackName
-        artistName.text = item.artistName
-        trackTime.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(item.trackTimeMillis)
+        if (track?.artistName != null) artistName.text = track.artistName
+        else artistName.text = R.string.unknown_musician.toString()
 
-        fun Context.dpToPx(dp: Int): Float = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            dp.toFloat(),
-            resources.displayMetrics)
+        if (track?.trackTimeMillis != null) trackTime.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis)
+        else trackTime.text = R.string.no_data.toString()
 
         Glide.with(itemView)
-            .load(item.artworkUrl100)
+            .load(track?.artworkUrl100?.replaceAfterLast('/', "512x512bb.jpg"))
             .placeholder(R.drawable.placeholder)
             .centerCrop()
             .transform(RoundedCorners(itemView.context.dpToPx(itemView.resources.getDimensionPixelSize(R.dimen.size_dp_2)).toInt()))
