@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -42,12 +44,11 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        val adapter = SearchAdapter(tracks)
-        {
-            historyOfSearch.setTrackList(sharedPreferences, tracks[tracks.indexOf(it)])
+
+
+        val adapter = SearchAdapter(tracks) {
             val displayIntent = Intent(this, AudioPlayerActivity::class.java)
-            displayIntent.putExtra(SAVED_TRACK, tracks[tracks.indexOf(it)])
-            startActivity(displayIntent)
+            pressTrack(tracks, historyOfSearch, tracks.indexOf(it), sharedPreferences, displayIntent)
         }
 
         val searchBack = findViewById<ImageView>(R.id.searchBack)
@@ -70,10 +71,8 @@ class SearchActivity : AppCompatActivity() {
         if (historySearchTracks.size > 0) {
             searchedHistoryTracks.adapter = SearchAdapter(historySearchTracks)
             {
-                historyOfSearch.setTrackList(sharedPreferences, historySearchTracks[historySearchTracks.indexOf(it)])
                 val displayIntent = Intent(this, AudioPlayerActivity::class.java)
-                displayIntent.putExtra(SAVED_TRACK, historySearchTracks[historySearchTracks.indexOf(it)])
-                startActivity(displayIntent)
+                pressTrack(historySearchTracks, historyOfSearch, historySearchTracks.indexOf(it), sharedPreferences, displayIntent)
             }
             placeHolderMessage.isVisible = false
             searchHistory.isVisible = true
@@ -102,10 +101,8 @@ class SearchActivity : AppCompatActivity() {
             searchHistory.isVisible = inputEditText.text.isEmpty() && !historyOfSearch.readTrackList(sharedPreferences).isEmpty()
             historySearchTracks = historyOfSearch.readTrackList(sharedPreferences)
             searchedHistoryTracks.adapter = SearchAdapter(historySearchTracks) {
-                historyOfSearch.setTrackList(sharedPreferences, historySearchTracks[historySearchTracks.indexOf(it)])
                 val displayIntent = Intent(this, AudioPlayerActivity::class.java)
-                displayIntent.putExtra(SAVED_TRACK, historySearchTracks[historySearchTracks.indexOf(it)])
-                startActivity(displayIntent)
+                pressTrack(historySearchTracks, historyOfSearch, historySearchTracks.indexOf(it), sharedPreferences, displayIntent)
             }
         }
 
@@ -131,12 +128,9 @@ class SearchActivity : AppCompatActivity() {
                 searchHistory.isVisible = !historyOfSearch.readTrackList(sharedPreferences).isEmpty()
                 historySearchTracks = historyOfSearch.readTrackList(sharedPreferences)
                 searchedHistoryTracks.adapter = SearchAdapter(historySearchTracks) {
-                    historyOfSearch.setTrackList(sharedPreferences, historySearchTracks[historySearchTracks.indexOf(it)])
                     val displayIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
-                    displayIntent.putExtra(SAVED_TRACK, historySearchTracks[historySearchTracks.indexOf(it)])
-                    startActivity(displayIntent)
+                    pressTrack(historySearchTracks, historyOfSearch, historySearchTracks.indexOf(it), sharedPreferences, displayIntent)
                 }
-
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -151,6 +145,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         inputEditText.addTextChangedListener(simpleTextWatcher)
+
 
         fun findTracks() {
             placeHolderMessage.isVisible = false
@@ -214,6 +209,16 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.addTextChangedListener(simpleTextWatcher)
 
     } //onCreate
+
+    //работа с нажатием на трек
+    private fun pressTrack(tracks: ArrayList<Track?>, searchHistory: SearchHistory, trackPosition: Int, sharedPreference: SharedPreferences, intent: Intent)
+    {
+        if (clickDebounce()) {
+            searchHistory.setTrackList(sharedPreferences, tracks[trackPosition])
+            intent.putExtra(SAVED_TRACK, tracks[trackPosition])
+            startActivity(intent)
+        }
+    }
 
     private fun clearButtonVisibility(s: CharSequence?): Boolean {
         return if (s.isNullOrEmpty()) false else true
