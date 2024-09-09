@@ -16,11 +16,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.utils.*
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,6 +60,7 @@ class SearchActivity : AppCompatActivity() {
         val clearHistoryButton = findViewById<Button>(R.id.clearHistoryButton)
         val searchHistory = findViewById<LinearLayout>(R.id.searchHistory)
         val placeHolderMessage = findViewById<LinearLayout>(R.id.placeholderMessage)
+        val progressBar = findViewById<CircularProgressIndicator>(R.id.progressBar)
 
         holderMessageText = findViewById(R.id.holderMessageText)
         holderMessageImage = findViewById(R.id.holderMessageImage)
@@ -111,45 +114,10 @@ class SearchActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
             searchHistory.isVisible = false
         }
-
-        val simpleTextWatcher = object : TextWatcher {
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                clearIcon.isVisible = clearButtonVisibility(s)
-                searchHistory.isVisible = false
-                val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
-
-                if (inputEditText.hasFocus() && s?.isEmpty() == true) {
-                    showMessage("", imageHolder,false)
-                }
-                searchHistory.isVisible = !historyOfSearch.readTrackList(sharedPreferences).isEmpty()
-                historySearchTracks = historyOfSearch.readTrackList(sharedPreferences)
-                searchedHistoryTracks.adapter = SearchAdapter(historySearchTracks) {
-                    val displayIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
-                    pressTrack(historySearchTracks, historyOfSearch, historySearchTracks.indexOf(it), sharedPreferences, displayIntent)
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                savedStr = inputEditText.text.toString()
-                if (inputEditText.text.isNotEmpty()) {
-                    searchHistory.isVisible = false
-                } else {
-                    placeHolderMessage.isVisible = false
-                    searchHistory.isVisible = !historyOfSearch.readTrackList(sharedPreferences).isEmpty()
-                }
-            }
-        }
-
-        inputEditText.addTextChangedListener(simpleTextWatcher)
-
-
         fun findTracks() {
             placeHolderMessage.isVisible = false
             searchHistory.isVisible = false
+            progressBar.isVisible = true
             if (inputEditText.text.isNotEmpty()) {
                 tracks.clear()
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
@@ -184,7 +152,52 @@ class SearchActivity : AppCompatActivity() {
                 placeHolderMessage.isVisible = false
                 searchHistory.isVisible = true
             }
+            progressBar.isVisible = false
         } //findTracks
+
+        val searchRunnable = Runnable { findTracks() }
+
+        fun searchDebounce() {
+            handler.removeCallbacks(searchRunnable)
+            handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+        }
+
+        val simpleTextWatcher = object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                clearIcon.isVisible = clearButtonVisibility(s)
+                searchHistory.isVisible = false
+                val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
+
+                if (inputEditText.hasFocus() && s?.isEmpty() == true) {
+                    showMessage("", imageHolder,false)
+
+                }
+                searchHistory.isVisible = !historyOfSearch.readTrackList(sharedPreferences).isEmpty()
+                historySearchTracks = historyOfSearch.readTrackList(sharedPreferences)
+                searchedHistoryTracks.adapter = SearchAdapter(historySearchTracks) {
+                    val displayIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
+                    pressTrack(historySearchTracks, historyOfSearch, historySearchTracks.indexOf(it), sharedPreferences, displayIntent)
+                }
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                savedStr = inputEditText.text.toString()
+                if (inputEditText.text.isNotEmpty()) {
+                    searchHistory.isVisible = false
+                } else {
+                    placeHolderMessage.isVisible = false
+                    searchHistory.isVisible = !historyOfSearch.readTrackList(sharedPreferences).isEmpty()
+                }
+            }
+        }
+
+        inputEditText.addTextChangedListener(simpleTextWatcher)
+
 
         val searchedTracksList = findViewById<RecyclerView>(R.id.searchedTracks)
         searchedTracksList.adapter = adapter

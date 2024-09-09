@@ -7,8 +7,8 @@ import android.util.TypedValue
 
 
 const val SAVED_TRACK = "savedtrack"
-const val CLICK_DEBOUNCE_DELAY = 1000
-
+const val CLICK_DEBOUNCE_DELAY: Long = 1000
+const val SEARCH_DEBOUNCE_DELAY: Long = 2000
 var isClickAllowed = true
 val handler = Handler(Looper.getMainLooper())
 
