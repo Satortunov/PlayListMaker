@@ -121,6 +121,7 @@ class SearchActivity : AppCompatActivity() {
             if (inputEditText.text.isNotEmpty()) {
                 tracks.clear()
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
+
                 iTunesAPI.search(inputEditText.text.toString()).enqueue(object : Callback<TrackResponse> {
                     @SuppressLint("ResourceType")
                     override fun onResponse(call: Call<TrackResponse>,
@@ -130,6 +131,7 @@ class SearchActivity : AppCompatActivity() {
                                 tracks.clear()
                                 tracks.addAll(response.body()?.results!!)
                                 adapter.notifyDataSetChanged()
+                                placeHolderMessage.isVisible = true
                             }
                             if (tracks.isEmpty()) {
                                 imageHolder.setImageResource(R.drawable.nothingfind)
@@ -173,9 +175,14 @@ class SearchActivity : AppCompatActivity() {
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
 
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
+                    handler.removeCallbacks(searchRunnable)
                     showMessage("", imageHolder,false)
-
+                } else {
+                    searchDebounce()
+                    placeHolderMessage.isVisible = true
                 }
+
+
                 searchHistory.isVisible = !historyOfSearch.readTrackList(sharedPreferences).isEmpty()
                 historySearchTracks = historyOfSearch.readTrackList(sharedPreferences)
                 searchedHistoryTracks.adapter = SearchAdapter(historySearchTracks) {
