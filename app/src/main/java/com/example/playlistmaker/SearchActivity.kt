@@ -22,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.utils.*
-import com.google.android.material.progressindicator.CircularProgressIndicator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,6 +41,7 @@ class SearchActivity : AppCompatActivity() {
     private var historySearchTracks = ArrayList<Track?>()
     private val historyOfSearch = SearchHistory()
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +60,7 @@ class SearchActivity : AppCompatActivity() {
         val clearHistoryButton = findViewById<Button>(R.id.clearHistoryButton)
         val searchHistory = findViewById<LinearLayout>(R.id.searchHistory)
         val placeHolderMessage = findViewById<LinearLayout>(R.id.placeholderMessage)
-        val progressBar = findViewById<CircularProgressIndicator>(R.id.progressBar)
+
 
         holderMessageText = findViewById(R.id.holderMessageText)
         holderMessageImage = findViewById(R.id.holderMessageImage)
@@ -70,7 +70,10 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.setRawInputType(InputType.TYPE_CLASS_TEXT)
         searchedHistoryTracks.adapter = adapter
         inputEditText.isCursorVisible = false
+        progressBar = findViewById(R.id.progressBar)
         historySearchTracks = historyOfSearch.readTrackList(sharedPreferences)
+
+
         if (historySearchTracks.size > 0) {
             searchedHistoryTracks.adapter = SearchAdapter(historySearchTracks)
             {
@@ -121,15 +124,18 @@ class SearchActivity : AppCompatActivity() {
             if (inputEditText.text.isNotEmpty()) {
                 tracks.clear()
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
+
                 iTunesAPI.search(inputEditText.text.toString()).enqueue(object : Callback<TrackResponse> {
                     @SuppressLint("ResourceType")
                     override fun onResponse(call: Call<TrackResponse>,
                                             response: Response<TrackResponse>) =
                         if (response.code() == 200) {
-                            if (response.body()?.results?.isNotEmpty() == true) {
+                            progressBar.isVisible = true
+                           if (response.body()?.results?.isNotEmpty() == true) {
                                 tracks.clear()
                                 tracks.addAll(response.body()?.results!!)
                                 adapter.notifyDataSetChanged()
+                                placeHolderMessage.isVisible = true
                             }
                             if (tracks.isEmpty()) {
                                 imageHolder.setImageResource(R.drawable.nothingfind)
@@ -138,9 +144,12 @@ class SearchActivity : AppCompatActivity() {
                                 imageHolder.setImageResource(R.drawable.nothingfind)
                                 showMessage("", imageHolder, false)
                             }
+                            progressBar.isVisible = false
                         } else {
+                            progressBar.isVisible = true
                             imageHolder.setImageResource(R.drawable.connproplems)
                             showMessage(getString(R.string.connection_problems), imageHolder, true)
+                            progressBar.isVisible = false
                         }
 
                     override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
@@ -173,9 +182,14 @@ class SearchActivity : AppCompatActivity() {
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
 
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
+                    handler.removeCallbacks(searchRunnable)
                     showMessage("", imageHolder,false)
-
+                } else {
+                    searchDebounce()
+                    placeHolderMessage.isVisible = true
                 }
+
+
                 searchHistory.isVisible = !historyOfSearch.readTrackList(sharedPreferences).isEmpty()
                 historySearchTracks = historyOfSearch.readTrackList(sharedPreferences)
                 searchedHistoryTracks.adapter = SearchAdapter(historySearchTracks) {

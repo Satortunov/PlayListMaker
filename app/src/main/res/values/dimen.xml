@@ -36,6 +36,7 @@
     <dimen name="size_dp_60">60dp</dimen>
     <dimen name="size_dp_61">61dp</dimen>
     <dimen name="size_dp_110">110dp</dimen>
+    <dimen name="size_dp_148">148dp</dimen>
 
     <dimen name="button_weight">1</dimen>
     <dimen name="button_height">0dp</dimen>

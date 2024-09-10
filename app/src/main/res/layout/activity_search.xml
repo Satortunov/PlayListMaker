@@ -66,6 +66,14 @@
             />
     </FrameLayout>
 
+    <ProgressBar android:id="@+id/progressBar"
+        android:layout_width="@dimen/size_dp_44"
+        android:layout_height="@dimen/size_dp_44"
+        android:layout_marginTop="@dimen/size_dp_148"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"/>
+
     <LinearLayout
         android:id="@+id/placeholderMessage"
         android:orientation="vertical"
@@ -73,15 +81,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:visibility="gone">
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progressBar"
-            android:layout_width="@dimen/size_dp_44"
-            android:layout_height="@dimen/size_dp_44"
-            android:indeterminateTint="@color/blue"
-            android:indeterminate="false"
-            android:progress="45"
-            android:visibility="gone"/>
 
         <androidx.recyclerview.widget.RecyclerView
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
