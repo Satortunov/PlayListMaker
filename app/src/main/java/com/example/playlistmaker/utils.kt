@@ -4,11 +4,23 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.util.TypedValue
+import com.example.playlistmaker.R
 
 
 const val SAVED_TRACK = "savedtrack"
-const val CLICK_DEBOUNCE_DELAY: Long = 1000
-const val SEARCH_DEBOUNCE_DELAY: Long = 2000
+
+const val CLICK_DEBOUNCE_DELAY = 1000L
+const val SEARCH_DEBOUNCE_DELAY = 2000L
+const val DELAY_MILLIS = 25L
+
+const val STATE_DEFAULT = 0
+const val STATE_PREPARED = 1
+const val STATE_PLAYING = 2
+const val STATE_PAUSED = 3
+const val TIME_FORMAT = "mm:ss"
+const val ZERO_TIME = "00:00"
+
+
 var isClickAllowed = true
 val handler = Handler(Looper.getMainLooper())
 
@@ -25,7 +37,6 @@ val handler = Handler(Looper.getMainLooper())
          }
      return current
     }
-
 
 
 

@@ -120,18 +120,15 @@ class SearchActivity : AppCompatActivity() {
         fun findTracks() {
             placeHolderMessage.isVisible = false
             searchHistory.isVisible = false
-            progressBar.isVisible = true
             if (inputEditText.text.isNotEmpty()) {
                 tracks.clear()
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
-
                 iTunesAPI.search(inputEditText.text.toString()).enqueue(object : Callback<TrackResponse> {
                     @SuppressLint("ResourceType")
                     override fun onResponse(call: Call<TrackResponse>,
                                             response: Response<TrackResponse>) =
                         if (response.code() == 200) {
-                            progressBar.isVisible = true
-                           if (response.body()?.results?.isNotEmpty() == true) {
+                            if (response.body()?.results?.isNotEmpty() == true) {
                                 tracks.clear()
                                 tracks.addAll(response.body()?.results!!)
                                 adapter.notifyDataSetChanged()
@@ -144,12 +141,9 @@ class SearchActivity : AppCompatActivity() {
                                 imageHolder.setImageResource(R.drawable.nothingfind)
                                 showMessage("", imageHolder, false)
                             }
-                            progressBar.isVisible = false
                         } else {
-                            progressBar.isVisible = true
                             imageHolder.setImageResource(R.drawable.connproplems)
                             showMessage(getString(R.string.connection_problems), imageHolder, true)
-                            progressBar.isVisible = false
                         }
 
                     override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
@@ -161,14 +155,15 @@ class SearchActivity : AppCompatActivity() {
                 placeHolderMessage.isVisible = false
                 searchHistory.isVisible = true
             }
-            progressBar.isVisible = false
-        } //findTracks
+         } //findTracks
 
         val searchRunnable = Runnable { findTracks() }
 
         fun searchDebounce() {
+            progressBar.isVisible = true
             handler.removeCallbacks(searchRunnable)
             handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+            progressBar.isVisible = false
         }
 
         val simpleTextWatcher = object : TextWatcher {
@@ -203,6 +198,7 @@ class SearchActivity : AppCompatActivity() {
                 savedStr = inputEditText.text.toString()
                 if (inputEditText.text.isNotEmpty()) {
                     searchHistory.isVisible = false
+                    searchDebounce()
                 } else {
                     placeHolderMessage.isVisible = false
                     searchHistory.isVisible = !historyOfSearch.readTrackList(sharedPreferences).isEmpty()
@@ -225,8 +221,12 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (inputEditText.text.isNotEmpty()) {
-                    findTracks()
+                    progressBar.isVisible = true
+                    searchDebounce()
+                     //findTracks()
+                    progressBar.isVisible = false
                     placeHolderMessage.isVisible = true
+
                 }
                 true
             }
