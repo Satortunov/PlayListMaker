@@ -120,6 +120,7 @@ class SearchActivity : AppCompatActivity() {
         fun findTracks() {
             placeHolderMessage.isVisible = false
             searchHistory.isVisible = false
+            progressBar.isVisible = true
             if (inputEditText.text.isNotEmpty()) {
                 tracks.clear()
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
@@ -132,6 +133,7 @@ class SearchActivity : AppCompatActivity() {
                                 tracks.clear()
                                 tracks.addAll(response.body()?.results!!)
                                 adapter.notifyDataSetChanged()
+                                progressBar.isVisible = false
                                 placeHolderMessage.isVisible = true
                             }
                             if (tracks.isEmpty()) {
@@ -152,6 +154,7 @@ class SearchActivity : AppCompatActivity() {
                     }
                 })
             } else {
+                progressBar.isVisible = false
                 placeHolderMessage.isVisible = false
                 searchHistory.isVisible = true
             }
@@ -208,7 +211,6 @@ class SearchActivity : AppCompatActivity() {
 
         inputEditText.addTextChangedListener(simpleTextWatcher)
 
-
         val searchedTracksList = findViewById<RecyclerView>(R.id.searchedTracks)
         searchedTracksList.adapter = adapter
         adapter.notifyDataSetChanged()
@@ -221,12 +223,8 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (inputEditText.text.isNotEmpty()) {
-                    progressBar.isVisible = true
                     searchDebounce()
-                     //findTracks()
-                    progressBar.isVisible = false
                     placeHolderMessage.isVisible = true
-
                 }
                 true
             }
@@ -274,10 +272,6 @@ class SearchActivity : AppCompatActivity() {
             holderMessageImage.isVisible = false
             reloadButton.isVisible = false
         }
-    }
-
-    private companion object {
-        const val SAVED_STRING = "SAVED_STRING"
-        const val SAVED_STR = ""
+        progressBar.isVisible = false
     }
 }
