@@ -117,6 +117,7 @@ class SearchActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
             searchHistory.isVisible = false
         }
+
         fun findTracks() {
             placeHolderMessage.isVisible = false
             searchHistory.isVisible = false
@@ -163,10 +164,8 @@ class SearchActivity : AppCompatActivity() {
         val searchRunnable = Runnable { findTracks() }
 
         fun searchDebounce() {
-            progressBar.isVisible = true
             handler.removeCallbacks(searchRunnable)
             handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
-            progressBar.isVisible = false
         }
 
         val simpleTextWatcher = object : TextWatcher {
@@ -182,11 +181,11 @@ class SearchActivity : AppCompatActivity() {
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
                     handler.removeCallbacks(searchRunnable)
                     showMessage("", imageHolder,false)
+                    placeHolderMessage.isVisible = true
                 } else {
                     searchDebounce()
                     placeHolderMessage.isVisible = true
                 }
-
 
                 searchHistory.isVisible = !historyOfSearch.readTrackList(sharedPreferences).isEmpty()
                 historySearchTracks = historyOfSearch.readTrackList(sharedPreferences)
@@ -201,7 +200,6 @@ class SearchActivity : AppCompatActivity() {
                 savedStr = inputEditText.text.toString()
                 if (inputEditText.text.isNotEmpty()) {
                     searchHistory.isVisible = false
-                    searchDebounce()
                 } else {
                     placeHolderMessage.isVisible = false
                     searchHistory.isVisible = !historyOfSearch.readTrackList(sharedPreferences).isEmpty()
