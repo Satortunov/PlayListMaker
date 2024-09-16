@@ -4,11 +4,9 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.util.TypedValue
-import com.example.playlistmaker.R
 
 
 const val SAVED_TRACK = "savedtrack"
-
 
 const val SAVED_STRING = "SAVED_STRING"
 const val SAVED_STR = ""

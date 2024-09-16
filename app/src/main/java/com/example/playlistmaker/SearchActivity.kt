@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -140,6 +138,7 @@ class SearchActivity : AppCompatActivity() {
                             if (tracks.isEmpty()) {
                                 imageHolder.setImageResource(R.drawable.nothingfind)
                                 showMessage(getString(R.string.nothing_find),imageHolder, false)
+                                placeHolderMessage.isVisible = true
                             } else {
                                 imageHolder.setImageResource(R.drawable.nothingfind)
                                 showMessage("", imageHolder, false)
@@ -147,11 +146,13 @@ class SearchActivity : AppCompatActivity() {
                         } else {
                             imageHolder.setImageResource(R.drawable.connproplems)
                             showMessage(getString(R.string.connection_problems), imageHolder, true)
+                            placeHolderMessage.isVisible = true
                         }
 
                     override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
                         imageHolder.setImageResource(R.drawable.connproplems)
                         showMessage(getString(R.string.connection_problems), imageHolder, true)
+                        placeHolderMessage.isVisible = true
                     }
                 })
             } else {
@@ -176,6 +177,7 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearIcon.isVisible = clearButtonVisibility(s)
                 searchHistory.isVisible = false
+
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
 
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
@@ -183,8 +185,8 @@ class SearchActivity : AppCompatActivity() {
                     showMessage("", imageHolder,false)
                     placeHolderMessage.isVisible = true
                 } else {
-                    searchDebounce()
                     placeHolderMessage.isVisible = true
+                    searchDebounce()
                 }
 
                 searchHistory.isVisible = !historyOfSearch.readTrackList(sharedPreferences).isEmpty()
@@ -193,7 +195,6 @@ class SearchActivity : AppCompatActivity() {
                     val displayIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
                     pressTrack(historySearchTracks, historyOfSearch, historySearchTracks.indexOf(it), sharedPreferences, displayIntent)
                 }
-
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -221,16 +222,14 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (inputEditText.text.isNotEmpty()) {
-                    searchDebounce()
                     placeHolderMessage.isVisible = true
+                    findTracks()
                 }
                 true
             }
             false
         }
-
         inputEditText.addTextChangedListener(simpleTextWatcher)
-
     } //onCreate
 
     //работа с нажатием на трек
