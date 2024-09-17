@@ -28,12 +28,16 @@
     <dimen name="size_dp_36">36dp</dimen>
     <dimen name="size_dp_38">38dp</dimen>
     <dimen name="size_dp_42">42dp</dimen>
+    <dimen name="size_dp_44">44dp</dimen>
     <dimen name="size_dp_45">45dp</dimen>
     <dimen name="size_dp_48">48dp</dimen>
     <dimen name="size_dp_52">52dp</dimen>
     <dimen name="size_dp_54">54dp</dimen>
     <dimen name="size_dp_60">60dp</dimen>
     <dimen name="size_dp_61">61dp</dimen>
+    <dimen name="size_dp_110">110dp</dimen>
+    <dimen name="size_dp_148">148dp</dimen>
+
     <dimen name="button_weight">1</dimen>
     <dimen name="button_height">0dp</dimen>
 

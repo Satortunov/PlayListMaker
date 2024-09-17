@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -38,16 +39,16 @@ class SearchActivity : AppCompatActivity() {
     private var historySearchTracks = ArrayList<Track?>()
     private val historyOfSearch = SearchHistory()
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        val adapter = SearchAdapter(tracks)
-        {
-            historyOfSearch.setTrackList(sharedPreferences, tracks[tracks.indexOf(it)])
+
+
+        val adapter = SearchAdapter(tracks) {
             val displayIntent = Intent(this, AudioPlayerActivity::class.java)
-            displayIntent.putExtra(SAVED_TRACK, tracks[tracks.indexOf(it)])
-            startActivity(displayIntent)
+            pressTrack(tracks, historyOfSearch, tracks.indexOf(it), sharedPreferences, displayIntent)
         }
 
         val searchBack = findViewById<ImageView>(R.id.searchBack)
@@ -58,6 +59,7 @@ class SearchActivity : AppCompatActivity() {
         val searchHistory = findViewById<LinearLayout>(R.id.searchHistory)
         val placeHolderMessage = findViewById<LinearLayout>(R.id.placeholderMessage)
 
+
         holderMessageText = findViewById(R.id.holderMessageText)
         holderMessageImage = findViewById(R.id.holderMessageImage)
         sharedPreferences = getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE)
@@ -66,14 +68,15 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.setRawInputType(InputType.TYPE_CLASS_TEXT)
         searchedHistoryTracks.adapter = adapter
         inputEditText.isCursorVisible = false
+        progressBar = findViewById(R.id.progressBar)
         historySearchTracks = historyOfSearch.readTrackList(sharedPreferences)
+
+
         if (historySearchTracks.size > 0) {
             searchedHistoryTracks.adapter = SearchAdapter(historySearchTracks)
             {
-                historyOfSearch.setTrackList(sharedPreferences, historySearchTracks[historySearchTracks.indexOf(it)])
                 val displayIntent = Intent(this, AudioPlayerActivity::class.java)
-                displayIntent.putExtra(SAVED_TRACK, historySearchTracks[historySearchTracks.indexOf(it)])
-                startActivity(displayIntent)
+                pressTrack(historySearchTracks, historyOfSearch, historySearchTracks.indexOf(it), sharedPreferences, displayIntent)
             }
             placeHolderMessage.isVisible = false
             searchHistory.isVisible = true
@@ -102,10 +105,8 @@ class SearchActivity : AppCompatActivity() {
             searchHistory.isVisible = inputEditText.text.isEmpty() && !historyOfSearch.readTrackList(sharedPreferences).isEmpty()
             historySearchTracks = historyOfSearch.readTrackList(sharedPreferences)
             searchedHistoryTracks.adapter = SearchAdapter(historySearchTracks) {
-                historyOfSearch.setTrackList(sharedPreferences, historySearchTracks[historySearchTracks.indexOf(it)])
                 val displayIntent = Intent(this, AudioPlayerActivity::class.java)
-                displayIntent.putExtra(SAVED_TRACK, historySearchTracks[historySearchTracks.indexOf(it)])
-                startActivity(displayIntent)
+                pressTrack(historySearchTracks, historyOfSearch, historySearchTracks.indexOf(it), sharedPreferences, displayIntent)
             }
         }
 
@@ -113,6 +114,59 @@ class SearchActivity : AppCompatActivity() {
             historyOfSearch.clearAllTracks(sharedPreferences)
             adapter.notifyDataSetChanged()
             searchHistory.isVisible = false
+        }
+
+        fun findTracks() {
+            placeHolderMessage.isVisible = false
+            searchHistory.isVisible = false
+            progressBar.isVisible = true
+            if (inputEditText.text.isNotEmpty()) {
+                tracks.clear()
+                val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
+                iTunesAPI.search(inputEditText.text.toString()).enqueue(object : Callback<TrackResponse> {
+                    @SuppressLint("ResourceType")
+                    override fun onResponse(call: Call<TrackResponse>,
+                                            response: Response<TrackResponse>) =
+                        if (response.code() == 200) {
+                            if (response.body()?.results?.isNotEmpty() == true) {
+                                tracks.clear()
+                                tracks.addAll(response.body()?.results!!)
+                                adapter.notifyDataSetChanged()
+                                progressBar.isVisible = false
+                                placeHolderMessage.isVisible = true
+                            }
+                            if (tracks.isEmpty()) {
+                                imageHolder.setImageResource(R.drawable.nothingfind)
+                                showMessage(getString(R.string.nothing_find),imageHolder, false)
+                                placeHolderMessage.isVisible = true
+                            } else {
+                                imageHolder.setImageResource(R.drawable.nothingfind)
+                                showMessage("", imageHolder, false)
+                            }
+                        } else {
+                            imageHolder.setImageResource(R.drawable.connproplems)
+                            showMessage(getString(R.string.connection_problems), imageHolder, true)
+                            placeHolderMessage.isVisible = true
+                        }
+
+                    override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
+                        imageHolder.setImageResource(R.drawable.connproplems)
+                        showMessage(getString(R.string.connection_problems), imageHolder, true)
+                        placeHolderMessage.isVisible = true
+                    }
+                })
+            } else {
+                progressBar.isVisible = false
+                placeHolderMessage.isVisible = false
+                searchHistory.isVisible = true
+            }
+         } //findTracks
+
+        val searchRunnable = Runnable { findTracks() }
+
+        fun searchDebounce() {
+            handler.removeCallbacks(searchRunnable)
+            handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
         }
 
         val simpleTextWatcher = object : TextWatcher {
@@ -123,20 +177,24 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearIcon.isVisible = clearButtonVisibility(s)
                 searchHistory.isVisible = false
+
                 val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
 
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
+                    handler.removeCallbacks(searchRunnable)
                     showMessage("", imageHolder,false)
+                    placeHolderMessage.isVisible = true
+                } else {
+                    placeHolderMessage.isVisible = true
+                    searchDebounce()
                 }
+
                 searchHistory.isVisible = !historyOfSearch.readTrackList(sharedPreferences).isEmpty()
                 historySearchTracks = historyOfSearch.readTrackList(sharedPreferences)
                 searchedHistoryTracks.adapter = SearchAdapter(historySearchTracks) {
-                    historyOfSearch.setTrackList(sharedPreferences, historySearchTracks[historySearchTracks.indexOf(it)])
                     val displayIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
-                    displayIntent.putExtra(SAVED_TRACK, historySearchTracks[historySearchTracks.indexOf(it)])
-                    startActivity(displayIntent)
+                    pressTrack(historySearchTracks, historyOfSearch, historySearchTracks.indexOf(it), sharedPreferences, displayIntent)
                 }
-
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -152,45 +210,6 @@ class SearchActivity : AppCompatActivity() {
 
         inputEditText.addTextChangedListener(simpleTextWatcher)
 
-        fun findTracks() {
-            placeHolderMessage.isVisible = false
-            searchHistory.isVisible = false
-            if (inputEditText.text.isNotEmpty()) {
-                tracks.clear()
-                val imageHolder = findViewById<ImageView>(R.id.holderMessageImage)
-                iTunesAPI.search(inputEditText.text.toString()).enqueue(object : Callback<TrackResponse> {
-                    @SuppressLint("ResourceType")
-                    override fun onResponse(call: Call<TrackResponse>,
-                                            response: Response<TrackResponse>) =
-                        if (response.code() == 200) {
-                            if (response.body()?.results?.isNotEmpty() == true) {
-                                tracks.clear()
-                                tracks.addAll(response.body()?.results!!)
-                                adapter.notifyDataSetChanged()
-                            }
-                            if (tracks.isEmpty()) {
-                                imageHolder.setImageResource(R.drawable.nothingfind)
-                                showMessage(getString(R.string.nothing_find),imageHolder, false)
-                            } else {
-                                imageHolder.setImageResource(R.drawable.nothingfind)
-                                showMessage("", imageHolder, false)
-                            }
-                        } else {
-                            imageHolder.setImageResource(R.drawable.connproplems)
-                            showMessage(getString(R.string.connection_problems), imageHolder, true)
-                        }
-
-                    override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-                        imageHolder.setImageResource(R.drawable.connproplems)
-                        showMessage(getString(R.string.connection_problems), imageHolder, true)
-                    }
-                })
-            } else {
-                placeHolderMessage.isVisible = false
-                searchHistory.isVisible = true
-            }
-        } //findTracks
-
         val searchedTracksList = findViewById<RecyclerView>(R.id.searchedTracks)
         searchedTracksList.adapter = adapter
         adapter.notifyDataSetChanged()
@@ -203,17 +222,25 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (inputEditText.text.isNotEmpty()) {
-                    findTracks()
                     placeHolderMessage.isVisible = true
+                    findTracks()
                 }
                 true
             }
             false
         }
-
         inputEditText.addTextChangedListener(simpleTextWatcher)
-
     } //onCreate
+
+    //работа с нажатием на трек
+    private fun pressTrack(tracks: ArrayList<Track?>, searchHistory: SearchHistory, trackPosition: Int, sharedPreference: SharedPreferences, intent: Intent)
+    {
+        if (clickDebounce()) {
+            searchHistory.setTrackList(sharedPreferences, tracks[trackPosition])
+            intent.putExtra(SAVED_TRACK, tracks[trackPosition])
+            startActivity(intent)
+        }
+    }
 
     private fun clearButtonVisibility(s: CharSequence?): Boolean {
         return if (s.isNullOrEmpty()) false else true
@@ -242,10 +269,6 @@ class SearchActivity : AppCompatActivity() {
             holderMessageImage.isVisible = false
             reloadButton.isVisible = false
         }
-    }
-
-    private companion object {
-        const val SAVED_STRING = "SAVED_STRING"
-        const val SAVED_STR = ""
+        progressBar.isVisible = false
     }
 }

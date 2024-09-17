@@ -11,6 +11,7 @@ data class Track (
         val releaseDate: String,
         val primaryGenreName: String,
         val country: String,
-        val trackId: Int
+        val trackId: Int,
+        val previewUrl: String
 ) : Serializable {}
 
