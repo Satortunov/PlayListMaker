@@ -1,10 +1,11 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.ui
 
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import com.example.playlistmaker.R
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
@@ -46,7 +47,8 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         val themeSwitcher = findViewById<SwitchMaterial>(R.id.themeSwitcher)
-        themeSwitcher.isChecked = getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE).getBoolean(THEME_KEY, false)
+        themeSwitcher.isChecked = getSharedPreferences(PLM_PREFERENCES, MODE_PRIVATE).getBoolean(
+            THEME_KEY, false)
 
         themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
             (applicationContext as App).switchTheme(checked)

@@ -10,7 +10,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/size_dp_16"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
 
     <FrameLayout

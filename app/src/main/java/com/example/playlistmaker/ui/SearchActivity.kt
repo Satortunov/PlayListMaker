@@ -1,4 +1,4 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -19,6 +19,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playlistmaker.R
+import com.example.playlistmaker.data.dto.SearchHistory
+import com.example.playlistmaker.data.dto.TrackResponse
+import com.example.playlistmaker.domain.models.Track
 import com.example.utils.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,7 +35,7 @@ class SearchActivity : AppCompatActivity() {
     private var savedStr: String = SAVED_STR
     private val itunesAPIUrl = "https://itunes.apple.com"
     private val retrofit = Retrofit.Builder().baseUrl(itunesAPIUrl).addConverterFactory(GsonConverterFactory.create()).build()
-    private val iTunesAPI = retrofit.create(iTunesAPI::class.java)
+    private val iTunesAPI = retrofit.create(com.example.playlistmaker.data.network.iTunesAPI::class.java)
     private lateinit var holderMessageText: TextView
     private lateinit var holderMessageImage: ImageView
     private lateinit var reloadButton: Button

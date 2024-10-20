@@ -1,4 +1,4 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.ui
 
 import android.view.View
 import android.widget.ImageView
@@ -6,6 +6,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.playlistmaker.R
+import com.example.playlistmaker.domain.models.Track
 import java.text.SimpleDateFormat
 import java.util.Locale
 import com.example.utils.*
@@ -30,7 +32,9 @@ class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             .load(track?.artworkUrl100?.replaceAfterLast('/', "512x512bb.jpg"))
             .placeholder(R.drawable.placeholder)
             .centerCrop()
-            .transform(RoundedCorners(itemView.context.dpToPx(itemView.resources.getDimensionPixelSize(R.dimen.size_dp_2)).toInt()))
+            .transform(RoundedCorners(itemView.context.dpToPx(itemView.resources.getDimensionPixelSize(
+                R.dimen.size_dp_2
+            )).toInt()))
             .into(artworkUrl)
     }
 }
